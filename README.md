@@ -77,7 +77,9 @@ Address: 255 Mitchell Ave, Winton Place
 1.3
 
 **Given** plant data feed is available  
+
 **When** I search for "asdfghjklzxc"  
+
 **Then** I should receive zero results (an empty list)  
 
 ### Requirement 101: Uploading Comments  
@@ -97,7 +99,7 @@ Restaurant names are in English.
 
 #### Examples  
 
-1.1
+1.1  
 **Given** a feed of restaurant data is available  
 **Given** camera permissions are available  
 **When**   
@@ -106,7 +108,7 @@ Restaurant names are in English.
 - Click the button "Add review"  
 **Then** when I navigate to the "Write Review" screen, I should see the "Upload Image" button available, after clicking "Upload Image", select "Take a photo" in the pop-up window, and I should successfully open the camera  
 
-1.2
+1.2  
 **Given** a feed of restaurant data is available  
 **Given** read and write mobile phone storage permissions are available  
 **When**  
