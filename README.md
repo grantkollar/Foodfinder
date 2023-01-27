@@ -7,7 +7,7 @@
 ## Functional requirements
 
 ## Class Diagram
-! [Class Diagram](/FoodFinderClassDiagram.drawio.png)
+![Class Diagram](/FoodFinderClassDiagram.drawio.png)
 ## Class Diagram Description
 
 ## Product Backlog
