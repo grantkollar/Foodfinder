@@ -24,6 +24,7 @@ Use Food Finder to accurately and quickly select restaurants and cuisines, or in
 ## Class Diagram
 ![Class Diagram](/FoodFinderClassDiagram.drawio.png)
 ## Class Diagram Description
+- App Module is a container for all the code within the project.
 
 ## Product Backlog
 
