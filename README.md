@@ -1,6 +1,6 @@
-# Foodfinder
-
 ---
+
+# Foodfinder
 
 ## Intro
 
@@ -13,7 +13,7 @@ moved? Traveling? Want to try a new cuisine? Food Finder can:
 If you're a restaurant owner, Food Finder is still helpful:
 
 - Register a restaurant and write your own restaurant homepage
-- Register a restaurant and write your own restaurant homepage
+- Recommend your restaurant information to customers
 
 Use Food Finder to accurately and quickly select restaurants and cuisines, or increase the sales of your restaurant
 
