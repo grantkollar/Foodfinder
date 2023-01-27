@@ -1,15 +1,15 @@
 # Foodfinder
 
-Intro
+#Intro
 
-Storyboard
+#Storyboard
 
-Functional requirements
+#Functional requirements
 
-Class Diagram
+#Class Diagram
 
-Class Diagram Description
+#Class Diagram Description
 
-Product Backlog
+#Product Backlog
 
-Scrum
+#Scrum
