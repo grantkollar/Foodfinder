@@ -40,80 +40,80 @@ Restaurant names are stated in English.
 #### Examples
 1.1
 
-**Given** a feed of restaurant data is available
+**Given** a feed of restaurant data is available  
 
-**When** I search for "Taco"
+**When** I search for "Taco"  
 
-**Then** I should receive at least one result with these attributes:
+**Then** I should receive at least one result with these attributes:  
 
-Restaurant name: EI Taco Veloz
-Number of comments: 10 reviews
-Address: 7 Martin Luther Ling Dr E, Corryville
+Restaurant name: EI Taco Veloz  
+Number of comments: 10 reviews  
+Address: 7 Martin Luther Ling Dr E, Corryville  
 
 And I should receive at least one result with these attributes:  
 
-Restaurant name: Drunken Tacos
-Number of comments: 20 reviews
-Address: 200 West Mcmillan, Corryville
+Restaurant name: Drunken Tacos  
+Number of comments: 20 reviews  
+Address: 200 West Mcmillan, Corryville  
 
 1.2
 
-**Given** a feed of restaurant data is available
+**Given** a feed of restaurant data is available  
 
-**When** I search for "McDonald's"
+**When** I search for "McDonald's"  
 
-**Then** I should receive at least one result with these attributes:
+**Then** I should receive at least one result with these attributes:  
 
-Restaurant name: McDonald's
-Number of comments: 100 reviews
-Address: 1126 E Mcmillan St, Walnut Hills
+Restaurant name: McDonald's  
+Number of comments: 100 reviews  
+Address: 1126 E Mcmillan St, Walnut Hills  
 
 And I should receive at least one result with these attributes:  
 
-Restaurant name: McDonald's
-Number of comments: 110 reviews
-Address: 255 Mitchell Ave, Winton Place
+Restaurant name: McDonald's  
+Number of comments: 110 reviews  
+Address: 255 Mitchell Ave, Winton Place  
 
 1.3
 
-**Given** plant data feed is available
-**When** I search for "asdfghjklzxc"
-**Then** I should receive zero results (an empty list)
+**Given** plant data feed is available  
+**When** I search for "asdfghjklzxc"  
+**Then** I should receive zero results (an empty list)  
 
-### Requirement 101: Uploading Comments
+### Requirement 101: Uploading Comments  
 
-#### Scenario
+#### Scenario  
 
-As a restaurant consumer, I want to be able to upload a review for a restaurant, which can include photos
+As a restaurant consumer, I want to be able to upload a review for a restaurant, which can include photos  d
 
 #### Dependencies
-Restaurant search data is available and accessible.
-The device has a camera, and the user has granted access to the camera.
-The device has picture storage and the user has granted access to read and write mobile phone storage.
+Restaurant search data is available and accessible.  
+The device has a camera, and the user has granted access to the camera.  
+The device has picture storage and the user has granted access to read and write mobile phone storage.  
 
 
 #### Assumptions  
-Restaurant names are in English.
+Restaurant names are in English.  
 
 #### Examples  
 
 1.1
-**Given** a feed of restaurant data is available
-**Given** camera permissions are available
-**When** 
+**Given** a feed of restaurant data is available  
+**Given** camera permissions are available  
+**When**   
 
-- Select restaurant EI Taco Veloz
-- Click the button "Add review"
-**Then** when I navigate to the "Write Review" screen, I should see the "Upload Image" button available, after clicking "Upload Image", select "Take a photo" in the pop-up window, and I should successfully open the camera
+- Select restaurant EI Taco Veloz  
+- Click the button "Add review"  
+**Then** when I navigate to the "Write Review" screen, I should see the "Upload Image" button available, after clicking "Upload Image", select "Take a photo" in the pop-up window, and I should successfully open the camera  
 
 1.2
-**Given** a feed of restaurant data is available
-**Given** read and write mobile phone storage permissions are available
-**When**
+**Given** a feed of restaurant data is available  
+**Given** read and write mobile phone storage permissions are available  
+**When**  
 
-- Select restaurant EI Taco Veloz
-- Click the button "Add review"
-**Then** when I navigate to the "Write Review" view, I should see the "Upload Image" button available, after clicking "Upload Image", select "Upload from Album" in the pop-up window, and I should be successfully opened Album and can successfully select pictures
+- Select restaurant EI Taco Veloz  
+- Click the button "Add review"  
+**Then** when I navigate to the "Write Review" view, I should see the "Upload Image" button available, after clicking "Upload Image", select "Upload from Album" in the pop-up window, and I should be successfully opened Album and can successfully select pictures  
 
 ## Class Diagram
 ![Class Diagram](/FoodFinderClassDiagram.drawio.png)
