@@ -38,6 +38,6 @@ Use Food Finder to accurately and quickly select restaurants and cuisines, or in
 ## Product Backlog
 
 ## Scrum
-Product Owner, Developer:Tigran Klekchyan
-Scrum Master, Developer : Grant Kollar
-UI Specialists, Developrs: Chang Xu, Yifan Bian
+- Product Owner, Developer:Tigran Klekchyan
+- Scrum Master, Developer : Grant Kollar
+- UI Specialists, Developrs: Chang Xu, Yifan Bian
