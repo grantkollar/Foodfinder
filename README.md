@@ -41,3 +41,7 @@ Use Food Finder to accurately and quickly select restaurants and cuisines, or in
 - Product Owner, Developer:Tigran Klekchyan
 - Scrum Master, Developer : Grant Kollar
 - UI Specialists, Developrs: Chang Xu, Yifan Bian
+
+## Meetings
+
+Friday 12pm Teams
