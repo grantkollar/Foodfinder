@@ -86,7 +86,7 @@ Address: 255 Mitchell Ave, Winton Place
 
 #### Scenario  
 
-As a restaurant consumer, I want to be able to upload a review for a restaurant, which can include photos  d
+As a restaurant consumer, I want to be able to upload a review for a restaurant, which can include photos  
 
 #### Dependencies
 Restaurant search data is available and accessible.  
