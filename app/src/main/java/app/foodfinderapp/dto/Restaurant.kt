@@ -1,4 +1,4 @@
 package app.foodfinderapp.dto
 
-class Food {
+class Restaurant {
 }

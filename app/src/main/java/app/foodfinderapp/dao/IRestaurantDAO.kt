@@ -1,4 +1,4 @@
 package app.foodfinderapp.dao
+interface IRestaurantDAO {
 
-class IFoodDAO {
 }

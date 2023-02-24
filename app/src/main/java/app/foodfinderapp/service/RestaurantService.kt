@@ -1,4 +1,5 @@
 package app.foodfinderapp.service
 
-class FoodService {
+class RestaurantService {
+
 }
