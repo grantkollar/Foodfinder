@@ -4,11 +4,11 @@
 
 ## Intro
 
-moved? Traveling? Want to try a new cuisine? Food Finder can:
+moving? Traveling? Want to try a new cuisine? Food Finder can:
 
 - Recommend restaurants based on your location and food preferences.
 - Provide restaurant information, consumer reviews and consumer discounts
-- Allows you to freely comment on restaurants
+- Allow you to freely comment on restaurants
 
 If you're a restaurant owner, Food Finder is still helpful:
 
