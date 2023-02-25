@@ -19,7 +19,7 @@ Use Food Finder to accurately and quickly select restaurants and cuisines, or in
 
 ## Storyboard
 
-![Storyboard](https://raw.githubusercontent.com/YifanBian-bianya/private/master/storyboard.png)
+![Storyboard](https://raw.githubusercontent.com/YifanBian-bianya/private/master/storyboard2023-02-25_000733.png)
 
 ## Functional requirements
 
