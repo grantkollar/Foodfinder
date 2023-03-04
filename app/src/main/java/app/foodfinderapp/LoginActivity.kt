@@ -3,22 +3,15 @@ package app.foodfinderapp
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import app.foodfinderapp.Application
-import app.foodfinderapp.R
-import app.foodfinderapp.LoginData
 import app.foodfinderapp.login.network.UserNetwork
-import app.foodfinderapp.ui.fragment.MeFragment
 import app.foodfinderapp.ui.viewModel.UserViewModel
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_login_password.*
-import kotlin.concurrent.thread
 
 class LoginActivity : BaseActivity() {
     private val viewModel by lazy {ViewModelProvider(this).get(UserViewModel::class.java)}
