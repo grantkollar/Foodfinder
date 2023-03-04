@@ -50,4 +50,8 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.7.1'
     testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.0'
     testImplementation "io.mockk:mockk:1.12.2"
+    implementation 'com.squareup.retrofit2:retrofit:2.0.2'
+    implementation 'com.squareup.okhttp3:okhttp:3.1.2'
+    implementation 'com.squareup.retrofit2:converter-gson:2.0.2'
+
 }
