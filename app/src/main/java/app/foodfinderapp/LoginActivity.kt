@@ -1,5 +1,6 @@
 package app.foodfinderapp
 
+import BaseActivity
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
@@ -12,27 +13,33 @@ import androidx.lifecycle.ViewModelProvider
 import app.foodfinderapp.Application.Companion.context
 import app.foodfinderapp.login.network.UserNetwork
 import app.foodfinderapp.ui.viewModel.UserViewModel
-import kotlinx.android.synthetic.main.activity_login.*
 import app.foodfinderapp.databinding.ActivityLoginBinding
-import kotlinx.android.synthetic.main.activity_login_password.*
+import kotlin.io.*
+
 
 class LoginActivity : BaseActivity() {
     private lateinit var binding: ActivityLoginBinding
     private val viewModel by lazy {ViewModelProvider(this).get(UserViewModel::class.java)}
 
+
     @SuppressLint("CommitPrefEdits")
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login_password)
+        binding = ActivityLoginBinding.inflate(layoutInflater) // Inflate the layout and bind its views
+        setContentView(binding.root) // Set the root view of the binding object as the content view
 
+        binding.loginPasswordDelete.setOnClickListener {
+            onBackPressed()
+        }
+s
 
-        login_delete.setOnClickListener {
+        binding.loginPasswordDelete.setOnClickListener {
             onBackPressed()
         }
 
 
-        login_turn_password.setOnClickListener {
+        binding.enteredPassword.setOnClickListener {
             val intent = Intent(context, LoginPasswordActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
@@ -40,35 +47,12 @@ class LoginActivity : BaseActivity() {
         }
 
 
-        send_code.setOnClickListener {
-            val phone = enter_phone.text.toString()
-            LoginData.SAVE_COOKIE = 1
-            viewModel.resultStatus(phone)
-            viewModel.backInfo.observe(this, Observer{ result ->
-                val info: String? = result.getOrNull()
-                val mTimeCountUtil = TimeCountUtil(send_code, 60000, 1000)
-                if("ok" == info){
-                    mTimeCountUtil.start()
-                    Toast.makeText(this, "发送成功", Toast.LENGTH_SHORT).show()
-                    val getCookie = getSharedPreferences("cookie", Context.MODE_PRIVATE).edit()
-                    getCookie.putString("getCookie",UserNetwork.cookie)
-                    Toast.makeText(this,UserNetwork.cookie,Toast.LENGTH_SHORT).show()
-                }else{
-                    Toast.makeText(this, "请输入正确的手机号", Toast.LENGTH_SHORT).show()
-                }
-//
-            })
-
-        }
-
-
-
         //登录
-        loginBtn.setOnClickListener {
+        binding.agreeLogin.setOnClickListener {
             val code = enter_code.text.toString()
             val phone = enter_phone.text.toString()
             Toast.makeText(this,UserNetwork.cookie,Toast.LENGTH_SHORT).show()
-            val pers = getSharedPreferences("cookie", Context.MODE_PRIVATE)
+            val pers = getSharedPreferences("cookie", MODE_PRIVATE)
             Log.d("cookie test",pers.getString("getCookie","").toString())
 
             viewModel.resultPhoneCode(phone, code, UserNetwork.cookie.toString())
@@ -77,7 +61,7 @@ class LoginActivity : BaseActivity() {
                 if ("ok" == info?.code){
                     //Toast.makeText(this, "头像"+info.detailUser.user.userPhoto, Toast.LENGTH_SHORT).show()
                     // 存入到本地文件中
-                    val userInfo = getSharedPreferences("userInfo", Context.MODE_PRIVATE).edit()
+                    val userInfo = getSharedPreferences("userInfo", MODE_PRIVATE).edit()
                     userInfo.putString("userName",info.detailUser.user.username)
                     userInfo.putString("userPhoto",info.detailUser.user.userPhoto)
                     userInfo.putString("phone",info.detailUser.user.phone)
