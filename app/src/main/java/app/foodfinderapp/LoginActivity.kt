@@ -6,8 +6,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import app.foodfinderapp.Application.Companion.context
 import app.foodfinderapp.login.network.UserNetwork
 import app.foodfinderapp.ui.viewModel.UserViewModel
 import kotlinx.android.synthetic.main.activity_login.*
@@ -20,14 +22,14 @@ class LoginActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+        setContentView(R.layout.activity_login_password)
 
-        //返回
+
         login_delete.setOnClickListener {
             onBackPressed()
         }
 
-        //转化为密码登录页面
+
         login_turn_password.setOnClickListener {
             val intent = Intent(context, LoginPasswordActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
@@ -35,7 +37,7 @@ class LoginActivity : BaseActivity() {
 
         }
 
-        //发送验证码
+
         send_code.setOnClickListener {
             val phone = enter_phone.text.toString()
             LoginData.SAVE_COOKIE = 1
