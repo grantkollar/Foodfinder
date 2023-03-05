@@ -1,4 +1,4 @@
 package app.foodfinderapp.login.model
 
 
-data class PasswordLoginArgs(val Email: String, val password: String)
+data class PasswordLoginArgs(val Phone: String, val Email: String, val password: String)

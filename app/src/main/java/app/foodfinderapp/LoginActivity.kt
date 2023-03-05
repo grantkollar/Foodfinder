@@ -32,7 +32,6 @@ class LoginActivity : BaseActivity() {
         binding.loginPasswordDelete.setOnClickListener {
             onBackPressed()
         }
-s
 
         binding.loginPasswordDelete.setOnClickListener {
             onBackPressed()
@@ -40,7 +39,7 @@ s
 
 
         binding.enteredPassword.setOnClickListener {
-            val intent = Intent(context, LoginPasswordActivity::class.java)
+            val intent = Intent(context, MainActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
 
@@ -49,31 +48,22 @@ s
 
         //登录
         binding.agreeLogin.setOnClickListener {
-            val code = enter_code.text.toString()
-            val phone = enter_phone.text.toString()
-            Toast.makeText(this,UserNetwork.cookie,Toast.LENGTH_SHORT).show()
-            val pers = getSharedPreferences("cookie", MODE_PRIVATE)
-            Log.d("cookie test",pers.getString("getCookie","").toString())
+            val email = binding.enteredEmail.text.toString()
+            val password = binding.enteredPassword.text.toString()
+            // if empty
+            if (email.isEmpty() || password.isEmpty()) {
+                Toast.makeText(this, "please email and password", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
 
-            viewModel.resultPhoneCode(phone, code, UserNetwork.cookie.toString())
-            viewModel.phoneLiveData.observe(this, Observer { result ->
-                val info= result.getOrNull()
-                if ("ok" == info?.code){
-                    //Toast.makeText(this, "头像"+info.detailUser.user.userPhoto, Toast.LENGTH_SHORT).show()
-                    // 存入到本地文件中
-                    val userInfo = getSharedPreferences("userInfo", MODE_PRIVATE).edit()
-                    userInfo.putString("userName",info.detailUser.user.username)
-                    userInfo.putString("userPhoto",info.detailUser.user.userPhoto)
-                    userInfo.putString("phone",info.detailUser.user.phone)
-                    userInfo.putString("token",info.detailUser.token)
-                    userInfo.apply()
-                    Log.d("codeToken",info.detailUser.token)
-                    LoginData.LOGIN_STATUS = 1
-                    onBackPressed()
-                }else{
-                    Toast.makeText(this, "验证码无效！", Toast.LENGTH_SHORT).show()
-                }
-            })
+            val emailRegex = "^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+$".toRegex()
+            if (!emailRegex.matches(email)) {
+                Toast.makeText(this, "right email pls", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            Toast.makeText(this, "login...", Toast.LENGTH_SHORT).show()
+
         }
 
 

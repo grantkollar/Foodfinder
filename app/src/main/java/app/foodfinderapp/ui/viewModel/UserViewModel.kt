@@ -16,7 +16,7 @@ class UserViewModel: ViewModel() {
 
     private val passwordLoginLiveData = MutableLiveData<PasswordLoginArgs>()
 
-    //    验证码
+    //验证码
     val backInfo = Transformations.switchMap(codeLiveData){ code ->
         Repository.sendCode(code)
     }
@@ -33,8 +33,8 @@ class UserViewModel: ViewModel() {
     }
 
 
-    fun resultPhoneCode(phone: String, code:String, cookie: String) {
-        phoneLoginLiveData.value = UserArgs(phone, code, cookie)
+    fun resultPhoneCode(phone: String, email: String, code: String, cookie: String) {
+        phoneLoginLiveData.value = UserArgs(phone, email, code, cookie)
     }
 
     // 地址
@@ -51,8 +51,8 @@ class UserViewModel: ViewModel() {
         Repository.getPasswordLogin(passwordLogin.Phone, passwordLogin.password)
     }
 
-    fun resultPasswordLocation(phone: String, password: String){
-        passwordLoginLiveData.value = PasswordLoginArgs(phone, password)
+    fun resultPasswordLocation(phone: String, password: String, Email: String){
+        passwordLoginLiveData.value = PasswordLoginArgs(phone, password, Email)
     }
 
     //修改信息
