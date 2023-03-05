@@ -5,8 +5,8 @@ import android.app.Application
 import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
 import app.foodfinderapp.util.ConfigData
-import com.baidu.mapapi.CoordType
-import com.baidu.mapapi.SDKInitializer
+//import com.baidu.mapapi.CoordType
+//import com.baidu.mapapi.SDKInitializer
 
 
 class Application: Application() {
@@ -28,9 +28,9 @@ class Application: Application() {
         }
 
         //SDK interface
-        SDKInitializer.initialize(context);
+        //SDKInitializer.initialize(context);
 
-        SDKInitializer.setCoordType(CoordType.BD09LL);
+        //SDKInitializer.setCoordType(CoordType.BD09LL);
     }
 
 }
