@@ -28,7 +28,7 @@ interface UserService {
 
 
     @GET("user/loginPassword")
-    fun getPasswordLogin(@Query("phone")phone: String,@Query("password")password:String):Call<PasswordLoginInfo>
+    fun getPasswordLogin(@Query("email")email: String,@Query("password")password:String):Call<PasswordLoginInfo>
 
 
 

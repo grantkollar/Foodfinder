@@ -14,8 +14,8 @@ import kotlin.coroutines.CoroutineContext
 
 object Repository {
 
-    fun sendCode(phone: String) = fire(Dispatchers.IO){
-        val getCode = UserNetwork.sendCode(phone)
+    fun sendCode(email: String) = fire(Dispatchers.IO){
+        val getCode = UserNetwork.sendCode(email)
 
         if (getCode.status == "ok"){
             val result = getCode.status
@@ -25,8 +25,8 @@ object Repository {
         }
     }
 
-    fun userLogin(phone: String, code: String, cookie: String)= fire(Dispatchers.IO){
-        val userResponse = UserNetwork.userLogin(phone, code, cookie)
+    fun userLogin(email: String, code: String, cookie: String)= fire(Dispatchers.IO){
+        val userResponse = UserNetwork.userLogin(email, code, cookie)
         if (userResponse.code == "ok"){
             Result.success(userResponse)
         }else{
@@ -44,8 +44,8 @@ object Repository {
         }
     }
 
-    fun getPasswordLogin(phone:String, password: String) = fire(Dispatchers.IO){
-        val passwordLoginResponse = UserNetwork.getPasswordLogin(phone,password)
+    fun getPasswordLogin(email:String, password: String) = fire(Dispatchers.IO){
+        val passwordLoginResponse = UserNetwork.getPasswordLogin(email,password)
         if (passwordLoginResponse.user.status == 1 ){
             Result.success(passwordLoginResponse)
         }else{
