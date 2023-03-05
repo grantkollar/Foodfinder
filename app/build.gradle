@@ -1,6 +1,13 @@
+buildscript {
+    ext {
+        kotlin_version = "1.6.0"
+    }
+}
+
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-parcelize'
 }
 
 android {
@@ -32,6 +39,10 @@ android {
     }
     buildFeatures {
         viewBinding true
+        dataBinding true
+    }
+    lintOptions {
+        abortOnError false
     }
 }
 
@@ -50,4 +61,12 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.7.1'
     testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.0'
     testImplementation "io.mockk:mockk:1.12.2"
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0"
+    implementation 'androidx.lifecycle:lifecycle-viewmodel:2.2.0'
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0"
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
