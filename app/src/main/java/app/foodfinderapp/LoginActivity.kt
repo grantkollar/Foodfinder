@@ -13,9 +13,11 @@ import app.foodfinderapp.Application.Companion.context
 import app.foodfinderapp.login.network.UserNetwork
 import app.foodfinderapp.ui.viewModel.UserViewModel
 import kotlinx.android.synthetic.main.activity_login.*
+import app.foodfinderapp.databinding.ActivityLoginBinding
 import kotlinx.android.synthetic.main.activity_login_password.*
 
 class LoginActivity : BaseActivity() {
+    private lateinit var binding: ActivityLoginBinding
     private val viewModel by lazy {ViewModelProvider(this).get(UserViewModel::class.java)}
 
     @SuppressLint("CommitPrefEdits")

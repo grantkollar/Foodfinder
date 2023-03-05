@@ -1,6 +1,13 @@
+buildscript {
+    ext {
+        kotlin_version = "1.6.0"
+    }
+}
+
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-parcelize'
 }
 
 android {
@@ -62,4 +69,5 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0"
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
