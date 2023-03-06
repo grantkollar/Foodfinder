@@ -33,10 +33,6 @@ class LoginActivity : BaseActivity() {
             onBackPressed()
         }
 
-        binding.loginPasswordDelete.setOnClickListener {
-            onBackPressed()
-        }
-
 
         binding.enteredPassword.setOnClickListener {
             val intent = Intent(context, MainActivity::class.java)
@@ -46,7 +42,7 @@ class LoginActivity : BaseActivity() {
         }
 
 
-        //登录
+        //login
         binding.agreeLogin.setOnClickListener {
             val email = binding.enteredEmail.text.toString()
             val password = binding.enteredPassword.text.toString()
