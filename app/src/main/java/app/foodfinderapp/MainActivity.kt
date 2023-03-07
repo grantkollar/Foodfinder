@@ -29,13 +29,27 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
+
         binding.fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
         }
 
-        val intentLaunch = Intent(this@MainActivity, LaunchActivity::class.java)
-        startActivity(intentLaunch)
+        binding.bottomNavigationView.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.navigation_login -> {
+                    val intent = Intent(this, LoginActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+                
+                R.id.navigation_home, R.id.navigation_notifications, R.id.navigation_dashboard -> {
+                    navController.navigate(item.itemId)
+                    true
+                }
+                else -> false
+            }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -49,15 +63,7 @@ class MainActivity : AppCompatActivity() {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
-            R.id.action_login -> {
-                val intent = Intent(this, LoginActivity::class.java)
-                startActivity(intent)
-                true
-            }
-            R.id.action_settings -> {
-
-                true
-            }
+            R.id.action_settings -> { true }
             else -> super.onOptionsItemSelected(item)
         }
 

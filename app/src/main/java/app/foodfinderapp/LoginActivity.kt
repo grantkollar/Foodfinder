@@ -33,14 +33,12 @@ class LoginActivity : BaseActivity() {
             onBackPressed()
         }
 
-
         binding.enteredPassword.setOnClickListener {
             val intent = Intent(context, MainActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
 
         }
-
 
         //login
         binding.agreeLogin.setOnClickListener {
@@ -60,6 +58,11 @@ class LoginActivity : BaseActivity() {
 
             Toast.makeText(this, "login...", Toast.LENGTH_SHORT).show()
 
+        }
+
+        binding.convertRegister.setOnClickListener {
+            val intent = Intent(context, RegisterActivity::class.java)
+            startActivity(intent)
         }
 
 

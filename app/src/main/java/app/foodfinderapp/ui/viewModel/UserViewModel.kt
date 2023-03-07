@@ -16,6 +16,8 @@ class UserViewModel: ViewModel() {
 
     private val passwordLoginLiveData = MutableLiveData<PasswordLoginArgs>()
 
+
+
     //验证码
     val backInfo = Transformations.switchMap(codeLiveData){ code ->
         Repository.sendCode(code)
