@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "9543039949",
+    "project_id": "foodfinder-9b1cc",
+    "storage_bucket": "foodfinder-9b1cc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:9543039949:android:27ee0954a5b6d932ad6284",
+        "android_client_info": {
+          "package_name": "app.foodfinderapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "9543039949-rv63ja4u39m9tvcnidtqg2mmfkeqhu33.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "app.foodfinderapp",
+            "certificate_hash": "160ab49065d96a3631ea5354f5d41aeb793428ea"
+          }
+        },
+        {
+          "client_id": "9543039949-68mdmtjrh7flu6t98l2gmauu9n38mj03.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAr7dL1sOa_0IVv5RTXKIN-SBbbpUlbTsI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "9543039949-68mdmtjrh7flu6t98l2gmauu9n38mj03.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
