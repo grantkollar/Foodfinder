@@ -10,10 +10,13 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import app.foodfinderapp.Application.Companion.context
 import app.foodfinderapp.login.network.UserNetwork
 import app.foodfinderapp.ui.viewModel.UserViewModel
 import app.foodfinderapp.databinding.ActivityLoginBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
 import kotlin.io.*
 
 
@@ -50,14 +53,25 @@ class LoginActivity : BaseActivity() {
                 return@setOnClickListener
             }
 
-            val emailRegex = "^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+$".toRegex()
+            val emailRegex = "^([a-zA-Z0-9._-])+@([a-zA-Z0-9._-])+$".toRegex()
             if (!emailRegex.matches(email)) {
                 Toast.makeText(this, "right email pls", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            Toast.makeText(this, "login...", Toast.LENGTH_SHORT).show()
-
+            FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+                        // to main
+                        val intent = Intent(context, MainActivity::class.java)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                        startActivity(intent)
+                        Toast.makeText(this, "Logged in as ${FirebaseAuth.getInstance().currentUser?.email}", Toast.LENGTH_SHORT).show()
+                    } else {
+                        // 登录失败，显示错误信息
+                        Toast.makeText(this, "Login failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                    }
+                }
         }
 
         binding.convertRegister.setOnClickListener {
