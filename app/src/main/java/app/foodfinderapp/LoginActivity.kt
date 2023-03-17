@@ -7,6 +7,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -43,10 +44,20 @@ class LoginActivity : BaseActivity() {
 
         }
 
+        //auto fulfill
+        val prefs = applicationContext.getSharedPreferences("login_info", Context.MODE_PRIVATE)
+        val isRemember = prefs.getBoolean("remember_password", false)
+        if (isRemember) {
+            binding.enteredEmail.setText(prefs.getString("email", ""))
+            binding.enteredPassword.setText(prefs.getString("password", ""))
+            binding.rememberPasswordCheckbox.isChecked = true
+        }
+
         //login
         binding.agreeLogin.setOnClickListener {
             val email = binding.enteredEmail.text.toString()
             val password = binding.enteredPassword.text.toString()
+
             // if empty
             if (email.isEmpty() || password.isEmpty()) {
                 Toast.makeText(this, "please email and password", Toast.LENGTH_SHORT).show()
@@ -62,6 +73,9 @@ class LoginActivity : BaseActivity() {
             FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
+
+                        //save
+                        saveLoginInfo()
                         // to main
                         val intent = Intent(context, MainActivity::class.java)
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
@@ -88,6 +102,19 @@ class LoginActivity : BaseActivity() {
         if(LoginData.TURN_MAIN == 1){
             onBackPressed()
         }
+    }
+
+    private fun saveLoginInfo() {
+        val prefs = applicationContext.getSharedPreferences("login_info", Context.MODE_PRIVATE)
+        val editor = prefs.edit()
+        if (binding.rememberPasswordCheckbox.isChecked) {
+            editor.putString("email", binding.enteredEmail.text.toString())
+            editor.putString("password", binding.enteredPassword.text.toString())
+            editor.putBoolean("remember_password", true)
+        } else {
+            editor.clear()
+        }
+        editor.apply()
     }
 
 
