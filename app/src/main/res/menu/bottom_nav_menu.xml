@@ -17,8 +17,8 @@
         android:title="@string/title_notifications" />
 
     <item
-        android:id="@+id/navigation_login"
+        android:id="@+id/navigation_profile"
         android:icon="@drawable/ic_login_24dp"
-        android:title="@string/action_login" />
+        android:title="@string/action_profile" />
 
 </menu>

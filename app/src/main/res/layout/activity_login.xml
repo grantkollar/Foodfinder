@@ -78,6 +78,12 @@
                 android:layout_height="0.5dp"
                 android:background="#EAE8E8" />
 
+            <CheckBox
+                android:id="@+id/remember_password_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Remember password" />
+
 
             <Button
                 android:id="@+id/agree_login"

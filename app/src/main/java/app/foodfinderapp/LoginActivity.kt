@@ -7,13 +7,17 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import app.foodfinderapp.Application.Companion.context
 import app.foodfinderapp.login.network.UserNetwork
 import app.foodfinderapp.ui.viewModel.UserViewModel
 import app.foodfinderapp.databinding.ActivityLoginBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
 import kotlin.io.*
 
 
@@ -40,24 +44,48 @@ class LoginActivity : BaseActivity() {
 
         }
 
+        //auto fulfill
+        val prefs = applicationContext.getSharedPreferences("login_info", Context.MODE_PRIVATE)
+        val isRemember = prefs.getBoolean("remember_password", false)
+        if (isRemember) {
+            binding.enteredEmail.setText(prefs.getString("email", ""))
+            binding.enteredPassword.setText(prefs.getString("password", ""))
+            binding.rememberPasswordCheckbox.isChecked = true
+        }
+
         //login
         binding.agreeLogin.setOnClickListener {
             val email = binding.enteredEmail.text.toString()
             val password = binding.enteredPassword.text.toString()
+
             // if empty
             if (email.isEmpty() || password.isEmpty()) {
                 Toast.makeText(this, "please email and password", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            val emailRegex = "^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+$".toRegex()
+            val emailRegex = "^([a-zA-Z0-9._-])+@([a-zA-Z0-9._-])+$".toRegex()
             if (!emailRegex.matches(email)) {
                 Toast.makeText(this, "right email pls", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            Toast.makeText(this, "login...", Toast.LENGTH_SHORT).show()
+            FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
 
+                        //save
+                        saveLoginInfo()
+                        // to main
+                        val intent = Intent(context, MainActivity::class.java)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                        startActivity(intent)
+                        Toast.makeText(this, "Logged in as ${FirebaseAuth.getInstance().currentUser?.email}", Toast.LENGTH_SHORT).show()
+                    } else {
+                        // 登录失败，显示错误信息
+                        Toast.makeText(this, "Login failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                    }
+                }
         }
 
         binding.convertRegister.setOnClickListener {
@@ -74,6 +102,19 @@ class LoginActivity : BaseActivity() {
         if(LoginData.TURN_MAIN == 1){
             onBackPressed()
         }
+    }
+
+    private fun saveLoginInfo() {
+        val prefs = applicationContext.getSharedPreferences("login_info", Context.MODE_PRIVATE)
+        val editor = prefs.edit()
+        if (binding.rememberPasswordCheckbox.isChecked) {
+            editor.putString("email", binding.enteredEmail.text.toString())
+            editor.putString("password", binding.enteredPassword.text.toString())
+            editor.putBoolean("remember_password", true)
+        } else {
+            editor.clear()
+        }
+        editor.apply()
     }
 
 
