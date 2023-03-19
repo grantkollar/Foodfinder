@@ -1,8 +1,10 @@
 package app.foodfinderapp
 
 import android.annotation.SuppressLint
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -35,13 +37,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var adapter: RestaurantAdapter
     private lateinit var recyclerView : RecyclerView
     private var isSearching = false
-
-    val restaurantList = mutableListOf<Restaurant>(
-        Restaurant("1", "Restaurant A", "fast food", "24", "A", "3251 B"),
-        Restaurant("2", "Restaurant B", "fast food", "24", "A", "3251 B"),
-        Restaurant("3", "Restaurant C", "fast food", "24", "A", "3251 B")
-        // 可以继续添加其他餐厅
-    )
+    val restaurantList = mutableListOf<Restaurant>()
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -92,17 +88,17 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-//        val restaurantRef = db.collection("restaurants")
-//        restaurantRef.get()
-//            .addOnSuccessListener { documents ->
-//            for (document in documents) {
-//                val restaurant = document.toObject(Restaurant::class.java)
-//                restaurantList.add(restaurant)
-//            }
-//            adapter.notifyDataSetChanged()
-//        }.addOnFailureListener { exception ->
-//            Log.e(TAG, "Error getting restaurants", exception)
-//        }
+        val restaurantRef = db.collection("restaurants")
+        restaurantRef.get()
+            .addOnSuccessListener { documents ->
+            for (document in documents) {
+                val restaurant = document.toObject(Restaurant::class.java)
+                restaurantList.add(restaurant)
+            }
+            adapter.notifyDataSetChanged()
+        }.addOnFailureListener { exception ->
+            Log.e(TAG, "Error getting restaurants", exception)
+        }
 
     }
 
