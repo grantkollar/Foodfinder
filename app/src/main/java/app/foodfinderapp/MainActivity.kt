@@ -1,5 +1,6 @@
 package app.foodfinderapp
 
+import app.foodfinderapp.AddRestaurantFragment
 import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.content.Intent
@@ -11,6 +12,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
+import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -153,6 +155,12 @@ class MainActivity : AppCompatActivity() {
             R.id.action_settings -> {
                 Toast.makeText(this, "lol", Toast.LENGTH_SHORT).show()
                 true }
+
+            R.id.action_add_restaurant -> {
+                val navController = findNavController(R.id.nav_host_fragment_content_main)
+                navController.navigate(R.id.navigation_add_restaurant)
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
 
