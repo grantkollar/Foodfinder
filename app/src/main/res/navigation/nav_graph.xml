@@ -33,4 +33,11 @@
             app:destination="@id/navigation_home" />
     </fragment>
 
+    <fragment
+        android:id="@+id/navigation_add_restaurant"
+        android:name="app.foodfinderapp.AddRestaurantFragment"
+        android:label="@string/add_restaurant"
+        tools:layout="@layout/add_restaurant" />
+
+
 </navigation>
