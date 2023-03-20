@@ -16,8 +16,7 @@ jobs:
 
       - run:
           name: Create local.properties
-          command: echo "sdk.dir=/path/to/android/sdk" > local.properties
-
+          command: echo "sdk.dir=C\:\\Users\\26232\\AppData\\Local\\Android\\Sdk" > local.properties && echo "YOUR_API_KEY=$YOUR_API_KEY" >> local.properties
 
       - run:
           name: Download Dependencies
