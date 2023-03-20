@@ -112,8 +112,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_main, menu)
-
         menuInflater.inflate(R.menu.menu_search, menu)
+        menuInflater.inflate(R.menu.menu_map, menu)
 
         val searchItem = menu.findItem(R.id.action_search)
         val searchView = searchItem?.actionView as SearchView
@@ -159,6 +159,12 @@ class MainActivity : AppCompatActivity() {
             R.id.action_add_restaurant -> {
                 val navController = findNavController(R.id.nav_host_fragment_content_main)
                 navController.navigate(R.id.navigation_add_restaurant)
+                true
+            }
+
+            R.id.action_map -> {
+                val navController = findNavController(R.id.nav_host_fragment_content_main)
+                navController.navigate(R.id.navigation_map)
                 true
             }
             else -> super.onOptionsItemSelected(item)
