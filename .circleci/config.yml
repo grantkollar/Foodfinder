@@ -13,6 +13,12 @@ jobs:
       - run:
           name: chmod permissions
           command: chmod +x ./gradlew
+
+      - run:
+          name: Create local.properties
+          command: echo "sdk.dir=/path/to/android/sdk" > local.properties
+
+
       - run:
           name: Download Dependencies
           command: ./gradlew androidDependencies
