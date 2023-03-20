@@ -28,4 +28,7 @@
     <string name="title_profile">Profile</string>
     <string name="action_profile">Profile</string>
     <string name="search">Search</string>
+    <string name="add_restaurant">Add Restaurant</string>
+    <string name="menu_map">Map</string>
+    <string name="Map">Map</string>
 </resources>

@@ -39,5 +39,11 @@
         android:label="@string/add_restaurant"
         tools:layout="@layout/add_restaurant" />
 
+    <fragment
+        android:id="@+id/navigation_map"
+        android:name="app.foodfinderapp.MapFragment"
+        android:label="@string/Map"
+        tools:layout="@layout/fragment_map" />
+
 
 </navigation>
