@@ -2,6 +2,7 @@ package app.foodfinderapp
 
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -18,6 +19,7 @@ class HomeActiv : AppCompatActivity() {
 
     private lateinit var name : TextView
     private lateinit var firebaseAuth : FirebaseAuth
+    private lateinit var restBtn : Button
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -25,25 +27,26 @@ class HomeActiv : AppCompatActivity() {
         setContentView(R.layout.fragment_home)
         firebaseAuth = FirebaseAuth.getInstance()
         val uid = firebaseAuth.currentUser?.uid
-
+        restBtn = findViewById(R.id.restaurantButtonDashboard)
         name = findViewById(R.id.dashBoardHeader)
 
-        val docRef = db.collection("restaurant").document(uid!!)
-        docRef.get()
-            .addOnSuccessListener {document ->
-                if(document != null){
-                    val fName = document.data!!["name"].toString()
+        restBtn.setOnClickListener {
+            val docRef = db.collection("restaurant").document(uid!!)
+            docRef.get()
+                .addOnSuccessListener { document ->
+                    if (document != null) {
+                        val fName = document.data!!["name"].toString()
 
 
-                    name.text = fName
+                        name.text = fName
+                    }
+
                 }
+                .addOnFailureListener { exception ->
+                    Toast.makeText(this, "failed", Toast.LENGTH_SHORT).show()
 
-            }
-            .addOnFailureListener{exception ->
-                Toast.makeText(this,"failed",Toast.LENGTH_SHORT).show()
-
-            }
-
+                }
+        }
     }
 
 }
