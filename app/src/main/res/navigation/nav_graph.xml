@@ -7,25 +7,25 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="app.foodfinderapp.HomeFragment"
+        android:name="app.foodfinderapp.ui.main.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="app.foodfinderapp.DashboardFragment"
+        android:name="app.foodfinderapp.ui.main.DashboardFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="app.foodfinderapp.NotificationsFragment"
+        android:name="app.foodfinderapp.ui.main.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
 
     <fragment
         android:id="@+id/navigation_profile"
-        android:name="app.foodfinderapp.ProfileFragment"
+        android:name="app.foodfinderapp.ui.main.ProfileFragment"
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_profile" >
         <action
@@ -35,13 +35,13 @@
 
     <fragment
         android:id="@+id/navigation_add_restaurant"
-        android:name="app.foodfinderapp.AddRestaurantFragment"
+        android:name="app.foodfinderapp.ui.main.AddRestaurantFragment"
         android:label="@string/add_restaurant"
         tools:layout="@layout/add_restaurant" />
 
     <fragment
         android:id="@+id/navigation_map"
-        android:name="app.foodfinderapp.MapFragment"
+        android:name="app.foodfinderapp.ui.main.MapFragment"
         android:label="@string/Map"
         tools:layout="@layout/fragment_map" />
 

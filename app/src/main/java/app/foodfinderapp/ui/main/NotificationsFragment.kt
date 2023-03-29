@@ -1,4 +1,4 @@
-package app.foodfinderapp
+package app.foodfinderapp.ui.main
 
 import android.os.Bundle
 import android.view.LayoutInflater

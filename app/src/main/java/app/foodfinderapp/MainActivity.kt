@@ -1,6 +1,5 @@
 package app.foodfinderapp
 
-import app.foodfinderapp.AddRestaurantFragment
 import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.content.Intent
@@ -12,7 +11,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -27,20 +25,28 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import androidx.recyclerview.widget.RecyclerView
+import app.foodfinderapp.RestaurantService
 
 
-
-
+/**
+ * This is the main activity for FoodFinder. It is responsible for managing
+ * the navigation between different fragments, handling UI interactions, and displaying
+ * the restaurant data.
+ */
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
     private val db = Firebase.firestore
     private lateinit var adapter: RestaurantAdapter
-    private lateinit var recyclerView : RecyclerView
+    private lateinit var recyclerView: RecyclerView
     private var isSearching = false
     val restaurantList = mutableListOf<Restaurant>()
+    private val restaurantService = RestaurantService()
 
+    /**
+     * This is called when the activity is starting, used for initial setup.
+     */
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,11 +75,6 @@ class MainActivity : AppCompatActivity() {
             when (item.itemId) {
                 R.id.navigation_profile -> {
                     if (isLoggedIn()) {
-                        val currentUser = FirebaseAuth.getInstance().currentUser
-                        if (currentUser != null) {
-                            // Show a toast with the user's email
-                            Toast.makeText(this, "Logged in as ${currentUser.email}", Toast.LENGTH_SHORT).show()
-                        }
                         navController.navigate(R.id.navigation_profile)
                     } else {
                         val intent = Intent(this, LoginActivity::class.java)
@@ -90,25 +91,33 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        val restaurantRef = db.collection("restaurants")
-        restaurantRef.get()
-            .addOnSuccessListener { documents ->
-            for (document in documents) {
-                val restaurant = document.toObject(Restaurant::class.java)
-                restaurantList.add(restaurant)
+        restaurantService.getAllRestaurants(
+            onSuccess = { fetchedRestaurants ->
+                restaurantList.addAll(fetchedRestaurants)
+                adapter.notifyDataSetChanged()
+            },
+            onFailure = { exception ->
+                Log.e(TAG, "Error getting restaurants", exception)
             }
-            adapter.notifyDataSetChanged()
-        }.addOnFailureListener { exception ->
-            Log.e(TAG, "Error getting restaurants", exception)
-        }
-
+        )
     }
 
+    /**
+     * Determines if the user is logged in.
+     *
+     * @return true if the user is logged in, returns false otherwise.
+     */
     fun isLoggedIn(): Boolean {
         val currentUser = FirebaseAuth.getInstance().currentUser
         return currentUser != null
     }
 
+    /**
+     * Initialize the contents of the Activity's standard options menu.
+     *
+     * @param menu The options menu in which to place the items.
+     * @return true for the menu to be displayed; if false, it will not be shown.
+     */
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_main, menu)
@@ -147,6 +156,12 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
+    /**
+     * This is called whenever an item in the options menu is selected.
+     *
+     * @param item The menu item that was selected.
+     * @return boolean Return false to allow normal menu processing, true to not perform any further processing.
+     */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -154,7 +169,8 @@ class MainActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.action_settings -> {
                 Toast.makeText(this, "lol", Toast.LENGTH_SHORT).show()
-                true }
+                true
+            }
 
             R.id.action_add_restaurant -> {
                 val navController = findNavController(R.id.nav_host_fragment_content_main)
@@ -172,12 +188,22 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    /**
+     * Called when the up button in the action bar is pressed.
+     *
+     * @return true if Up navigation is completed successfully and this Activity was finished,
+     * returns false otherwise.
+     */
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration)
                 || super.onSupportNavigateUp()
     }
 
+    /**
+     * This is called after onRestoreInstanceState(Bundle), onRestart(), or onPause(),
+     * for the activity to start interacting with the user.
+     */
     override fun onResume() {
         super.onResume()
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
