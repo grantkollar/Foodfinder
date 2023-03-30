@@ -44,7 +44,7 @@ class LoginActivity : BaseActivity() {
 
         }
 
-        //auto fulfill
+
         val prefs = applicationContext.getSharedPreferences("login_info", Context.MODE_PRIVATE)
         val isRemember = prefs.getBoolean("remember_password", false)
         if (isRemember) {
@@ -53,7 +53,7 @@ class LoginActivity : BaseActivity() {
             binding.rememberPasswordCheckbox.isChecked = true
         }
 
-        //login
+
         binding.agreeLogin.setOnClickListener {
             val email = binding.enteredEmail.text.toString()
             val password = binding.enteredPassword.text.toString()
