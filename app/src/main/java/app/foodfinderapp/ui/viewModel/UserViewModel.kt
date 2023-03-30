@@ -53,8 +53,8 @@ class UserViewModel: ViewModel() {
         Repository.getPasswordLogin(passwordLogin.Phone, passwordLogin.password)
     }
 
-    fun resultPasswordLocation(phone: String, password: String, Email: String){
-        passwordLoginLiveData.value = PasswordLoginArgs(phone, password, Email)
+    fun resultPasswordLocation(phone: String, password: String, email: String){
+        passwordLoginLiveData.value = PasswordLoginArgs(phone, password, email)
     }
 
     //修改信息
