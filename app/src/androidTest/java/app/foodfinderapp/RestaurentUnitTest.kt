@@ -14,7 +14,7 @@ import org.junit.Assert.*
  * See [testing documentation](http://d.android.com/tools/testing).
  */
 @RunWith(AndroidJUnit4::class)
-class ContextUnitTest {
+class RestaurentUnitTest {
     @Test
     fun `Uses Application Context`() {
         // Context of the app under test.
