@@ -1,6 +1,5 @@
 package app.foodfinderapp
 
-import app.foodfinderapp.AddRestaurantFragment
 import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.content.Intent
@@ -12,7 +11,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -60,7 +58,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         adapter = RestaurantAdapter(restaurantList)
-        recyclerView = findViewById<RecyclerView>(R.id.restaurantRecyclerView)
+        recyclerView = findViewById(R.id.restaurantRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
         recyclerView.visibility = View.GONE
