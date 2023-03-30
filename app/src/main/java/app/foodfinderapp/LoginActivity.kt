@@ -5,18 +5,11 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.core.content.ContextCompat.startActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import app.foodfinderapp.Application.Companion.context
-import app.foodfinderapp.login.network.UserNetwork
 import app.foodfinderapp.ui.viewModel.UserViewModel
 import app.foodfinderapp.databinding.ActivityLoginBinding
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import kotlin.io.*
 
@@ -82,7 +75,7 @@ class LoginActivity : BaseActivity() {
                         startActivity(intent)
                         Toast.makeText(this, "Logged in as ${FirebaseAuth.getInstance().currentUser?.email}", Toast.LENGTH_SHORT).show()
                     } else {
-                        // 登录失败，显示错误信息
+
                         Toast.makeText(this, "Login failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                     }
                 }
