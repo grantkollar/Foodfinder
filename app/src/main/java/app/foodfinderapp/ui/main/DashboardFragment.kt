@@ -1,4 +1,4 @@
-package app.foodfinderapp
+package app.foodfinderapp.ui.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import app.foodfinderapp.databinding.FragmentHomeBinding
+import app.foodfinderapp.databinding.FragmentDashboardBinding
 
-class HomeFragment : Fragment() {
+class DashboardFragment : Fragment() {
 
-    private var _binding: FragmentHomeBinding? = null
+    private var _binding: FragmentDashboardBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -23,11 +23,10 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-
+        _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         return binding.root
-    }
+
+        }
 
     override fun onDestroyView() {
         super.onDestroyView()

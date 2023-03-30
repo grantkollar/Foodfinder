@@ -1,4 +1,4 @@
-package app.foodfinderapp
+package app.foodfinderapp.ui.main
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,7 +10,7 @@ import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import app.foodfinderapp.databinding.FragmentProfileBinding
 import com.google.firebase.auth.FirebaseAuth
-import android.content.Context
+import app.foodfinderapp.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 // TODO: Rename parameter arguments, choose names that match
@@ -19,9 +19,10 @@ private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
 /**
- * A simple [Fragment] subclass.
- * Use the [ProfileFragment.newInstance] factory method to
- * create an instance of this fragment.
+ * A [Fragment] subclass representing the profile screen in the application.
+ * Displays user information and provides an option to log out.
+ *
+ * Use the [ProfileFragment.newInstance] factory method to create an instance of this fragment.
  */
 class ProfileFragment : Fragment() {
     // TODO: Rename and change types of parameters
@@ -39,6 +40,10 @@ class ProfileFragment : Fragment() {
         }
     }
 
+    /**
+     * Called to create the view hierarchy associated with the fragment.
+     * Creates the layout and sets up the logout button.
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -50,18 +55,38 @@ class ProfileFragment : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        showUserEmailToast()
+    }
+
+    /**
+     * Displays a toast message with the current user's email.
+     */
+    private fun showUserEmailToast() {
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        if (currentUser != null) {
+            Toast.makeText(activity, "Logged in as ${currentUser.email}", Toast.LENGTH_SHORT).show()
+        }
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
+    /**
+     * Handles button click events for the logout button.
+     * Signs out the user and navigates back to the home screen.
+     */
     private fun onClick(view: View) {
         when (view.id) {
             R.id.btn_logout -> {
                 FirebaseAuth.getInstance().signOut()
                 Toast.makeText(activity, "Logged out successfully!", Toast.LENGTH_SHORT).show()
 
-                val bottomNavigationView = requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+                val bottomNavigationView =
+                    requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationView)
                 bottomNavigationView.menu.findItem(R.id.navigation_home).isChecked = true
 
                 // 执行导航到主界面
@@ -69,7 +94,6 @@ class ProfileFragment : Fragment() {
             }
         }
     }
-
 
 
     companion object {
