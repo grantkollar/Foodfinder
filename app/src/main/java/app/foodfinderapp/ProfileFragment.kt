@@ -14,7 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import app.foodfinderapp.databinding.FragmentProfileBinding
 import app.foodfinderapp.ui.viewModel.UserViewModel
-import app.foodfinderapp.util.MeAsActivity
+import app.foodfinderapp.MeAsActivity
 
 class ProfileFragment : Fragment() {
 
