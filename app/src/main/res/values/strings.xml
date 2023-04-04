@@ -31,4 +31,9 @@
     <string name="add_restaurant">Add Restaurant</string>
     <string name="menu_map">Map</string>
     <string name="Map">Map</string>
+    <string name="feedback">Feedback</string>
+    <string name="MeAboutActivity">MeAboutActivity</string>
+    <string name="measactivity">MeAsActivity</string>
+    <string name="meorderactivity">MeOrderActivity</string>
+    <string name="mycouponactivity">MyCouponActivity</string>
 </resources>

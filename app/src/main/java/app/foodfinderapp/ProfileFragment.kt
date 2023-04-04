@@ -1,42 +1,28 @@
 package app.foodfinderapp
 
+import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.Toast
-import androidx.navigation.fragment.findNavController
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import app.foodfinderapp.databinding.FragmentProfileBinding
-import com.google.firebase.auth.FirebaseAuth
-import android.content.Context
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import app.foodfinderapp.ui.viewModel.UserViewModel
+import app.foodfinderapp.MeAsActivity
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [ProfileFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ProfileFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-    private lateinit var btnLogout: Button
+
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
     }
 
     override fun onCreateView(
@@ -45,9 +31,8 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
-        val btnLogout = binding.btnLogout
-        btnLogout.setOnClickListener { onClick(it) }
-        return binding.root
+        val view = binding.root
+        return view
     }
 
     override fun onDestroyView() {
@@ -55,40 +40,95 @@ class ProfileFragment : Fragment() {
         _binding = null
     }
 
-    private fun onClick(view: View) {
-        when (view.id) {
-            R.id.btn_logout -> {
-                FirebaseAuth.getInstance().signOut()
-                Toast.makeText(activity, "Logged out successfully!", Toast.LENGTH_SHORT).show()
+    @SuppressLint("WrongConstant")
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        val viewModel by lazy { ViewModelProvider(this).get(UserViewModel::class.java) }
+        if (LoginData.LOGIN_STATUS == 0) {
+            binding.loginOutCard.visibility = View.GONE
+        }
 
-                val bottomNavigationView = requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationView)
-                bottomNavigationView.menu.findItem(R.id.navigation_home).isChecked = true
+        //Account Security
+        binding.layoutMePra.setOnClickListener {
+            val intent = Intent(Application.context, MeAsActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+        }
 
-                // 执行导航到主界面
-                findNavController().navigate(R.id.navigation_home)
+        //Privacy
+        binding.layoutPrivacy.setOnClickListener {
+            Toast.makeText(context, "None", Toast.LENGTH_SHORT).show()
+        }
+
+        //My Address
+        binding.layoutMyAddress.setOnClickListener {
+            if (LoginData.LOGIN_STATUS == 1) {
+                val Token =
+                    activity?.getSharedPreferences("userInfo", AppCompatActivity.MODE_PRIVATE)
+                val token = Token?.getString("token", "null")
+                Log.d("token", token.toString())
+                if (token != null) {
+                    viewModel.resultLocation(token)
+                }
+
             }
         }
+
+        //Feedback
+        binding.layoutEvaluate.setOnClickListener {
+            val intent = Intent(Application.context, FeedbackActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+        }
+
+        //Coupon
+        binding.layoutMeCoupon.setOnClickListener {
+            val intent = Intent(Application.context, MyCouponActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+        }
+
+        //Personal Center
+        binding.cardMeData.setOnClickListener {
+            if (LoginData.LOGIN_STATUS == 0) {
+                val intent = Intent(Application.context, LoginActivity::class.java)
+                startActivity(intent)
+            } else {
+                Toast.makeText(context, "Already login.", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        //About
+        binding.layoutMeAbout.setOnClickListener {
+            val intent = Intent(Application.context, MeAsActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+        }
+
+        //order
+        binding.layoutMyOrders.setOnClickListener {
+            val intent = Intent(Application.context, MeOrderActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+        }
+
+        //Evaluation Center
+
+        //Log out
+
     }
 
+    override fun onResume() {
+        super.onResume()
+        LoginData.TURN_MAIN = 0
+        if (LoginData.LOGIN_STATUS == 1) {
+            val pers = activity?.getSharedPreferences("userInfo", Context.MODE_PRIVATE)
+            binding.textMeWords.text = pers?.getString("userName", "Not Log in")
+            binding.loginOutCard.visibility = View.VISIBLE
+        } else {
+            binding.textMeWords.text = "Not Log in"
+            binding.loginOutCard.visibility = View.GONE
 
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment fragment_profile.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ProfileFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+        }
     }
 }

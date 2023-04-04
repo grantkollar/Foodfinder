@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import app.foodfinderapp.login.model.PasswordLoginArgs
 import app.foodfinderapp.login.model.UserArgs
 import app.foodfinderapp.login.repository.Repository
-//参考书本P545、619
+
 class UserViewModel: ViewModel() {
     private val codeLiveData = MutableLiveData<String>()
 
@@ -18,7 +18,7 @@ class UserViewModel: ViewModel() {
 
 
 
-    //验证码
+
     val backInfo = Transformations.switchMap(codeLiveData){ code ->
         Repository.sendCode(code)
     }
@@ -28,7 +28,7 @@ class UserViewModel: ViewModel() {
         codeLiveData.value = phone
     }
 
-//    手机登录注册
+
 
     val phoneLiveData = Transformations.switchMap(phoneLoginLiveData){ loginPhone ->
         Repository.userLogin(loginPhone.Phone, loginPhone.code, loginPhone.cookie)
@@ -39,7 +39,7 @@ class UserViewModel: ViewModel() {
         phoneLoginLiveData.value = UserArgs(phone, email, code, cookie)
     }
 
-    // 地址
+    // address
     val locationData = Transformations.switchMap(locationLiveData){ token ->
         Repository.getLocation(token)
     }
@@ -48,7 +48,7 @@ class UserViewModel: ViewModel() {
         locationLiveData.value = token
     }
 
-    //密码登录
+    // password login
     val passwordLogin = Transformations.switchMap(passwordLoginLiveData){ passwordLogin ->
         Repository.getPasswordLogin(passwordLogin.Phone, passwordLogin.password)
     }
