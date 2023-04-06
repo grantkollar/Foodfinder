@@ -36,4 +36,7 @@
     <string name="measactivity">MeAsActivity</string>
     <string name="meorderactivity">MeOrderActivity</string>
     <string name="mycouponactivity">MyCouponActivity</string>
+    <string name="restaurant">Resaurant</string>
+    <string name="cafe">Cafe</string>
+    <string name="bar">Bar</string>
 </resources>
