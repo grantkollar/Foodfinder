@@ -150,7 +150,7 @@
         android:paddingEnd="10dp">
 
         <Button
-
+            android:id="@+id/FeedBack_Submit"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="#9A9F9F"
