@@ -1,14 +1,12 @@
 package app.foodfinderapp.adapter
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import app.foodfinderapp.R
 import app.foodfinderapp.databinding.RestaurantItemBinding
 import app.foodfinderapp.dto.Restaurant
 
+//Used to bind the data in the restaurant list to the RecyclerView (Search results are displayed using RecyclerView)
 class RestaurantAdapter(private var restaurantList: List<Restaurant>) :
     RecyclerView.Adapter<RestaurantAdapter.RestaurantViewHolder>() {
 
@@ -19,6 +17,7 @@ class RestaurantAdapter(private var restaurantList: List<Restaurant>) :
         return RestaurantViewHolder(binding)
     }
 
+    //Bind data to ViewHolder
     override fun onBindViewHolder(holder: RestaurantViewHolder, position: Int) {
         val currentRestaurant = restaurantList[position]
         holder.bind(currentRestaurant)
@@ -26,15 +25,18 @@ class RestaurantAdapter(private var restaurantList: List<Restaurant>) :
 
     override fun getItemCount() = restaurantList.size
 
+    //ViewHolder, used to bind restaurant data to the layout file
     inner class RestaurantViewHolder(private val binding: RestaurantItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(restaurant: Restaurant) {
             binding.restaurantName.text = restaurant.name
             binding.restaurantAddress.text = restaurant.address
-            // 可以继续设置其他控件的属性
+            // another if need
         }
     }
+
+    //Update the data source and refresh the list
     fun setDataList(newList: List<Restaurant>) {
         restaurantList = newList.toMutableList()
     }
