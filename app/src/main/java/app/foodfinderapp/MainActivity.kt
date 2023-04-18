@@ -1,9 +1,12 @@
 package app.foodfinderapp
 
+import android.Manifest
 import app.foodfinderapp.AddRestaurantFragment
 import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -27,9 +30,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import androidx.recyclerview.widget.RecyclerView
-
-
-
+import java.util.ArrayList
 
 class MainActivity : AppCompatActivity() {
 
@@ -44,6 +45,8 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        requestPermission()
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -183,6 +186,30 @@ class MainActivity : AppCompatActivity() {
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         bottomNavigationView.menu.findItem(R.id.navigation_home).isChecked = true
         findNavController(R.id.nav_host_fragment_content_main).navigate(R.id.navigation_home)
+    }
+
+    private fun requestPermission() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            val permissionsList = ArrayList<String>()
+            val permissions = arrayOf(
+                Manifest.permission.ACCESS_NETWORK_STATE,
+                Manifest.permission.INTERNET,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.CAMERA,
+                Manifest.permission.ACCESS_WIFI_STATE)
+            for (perm in permissions) {
+                if (PackageManager.PERMISSION_GRANTED != checkSelfPermission(perm)) {
+                    permissionsList.add(perm)
+                }
+            }
+            if (!permissionsList.isEmpty()) {
+                val strings = arrayOfNulls<String>(permissionsList.size)
+                requestPermissions(permissionsList.toArray(strings), 0)
+            }
+        }
     }
 
 }
