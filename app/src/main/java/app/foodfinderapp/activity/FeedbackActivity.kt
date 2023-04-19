@@ -1,10 +1,11 @@
-package app.foodfinderapp
+package app.foodfinderapp.activity
 
-import BaseActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import app.foodfinderapp.R
 import app.foodfinderapp.databinding.ActivityFeedbackBinding
 
-class FeedbackActivity : BaseActivity() {
+class FeedbackActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityFeedbackBinding
     override fun onCreate(savedInstanceState: Bundle?) {

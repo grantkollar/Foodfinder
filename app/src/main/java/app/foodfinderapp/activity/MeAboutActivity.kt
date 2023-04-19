@@ -1,11 +1,11 @@
-package app.foodfinderapp
+package app.foodfinderapp.activity
 
-import BaseActivity
 import android.os.Bundle
-import androidx.compose.foundation.IndicationInstance
+import androidx.appcompat.app.AppCompatActivity
+import app.foodfinderapp.R
 import app.foodfinderapp.databinding.ActivityMeAboutBinding
 
-class MeAboutActivity : BaseActivity() {
+class MeAboutActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMeAboutBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

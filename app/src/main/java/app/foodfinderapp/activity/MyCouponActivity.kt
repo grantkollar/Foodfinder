@@ -1,17 +1,19 @@
-package app.foodfinderapp
+package app.foodfinderapp.activity
 
-import BaseActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import app.foodfinderapp.CouponInfo
+import app.foodfinderapp.R
 import app.foodfinderapp.databinding.ActivityMyCouponBinding
 
-class MyCouponActivity : BaseActivity() {
+class MyCouponActivity : AppCompatActivity() {
     private val bagList:ArrayList<CouponInfo> = ArrayList<CouponInfo>()
     private lateinit var binding:ActivityMyCouponBinding
     override fun onCreate(savedInstanceState: Bundle?) {

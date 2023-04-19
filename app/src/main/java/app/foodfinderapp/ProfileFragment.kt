@@ -4,26 +4,21 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import app.foodfinderapp.activity.*
 import app.foodfinderapp.databinding.FragmentProfileBinding
-import app.foodfinderapp.ui.viewModel.UserViewModel
-import app.foodfinderapp.MeAsActivity
+import com.google.firebase.auth.FirebaseAuth
+
 
 class ProfileFragment : Fragment() {
 
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,10 +38,6 @@ class ProfileFragment : Fragment() {
     @SuppressLint("WrongConstant")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        val viewModel by lazy { ViewModelProvider(this).get(UserViewModel::class.java) }
-        if (LoginData.LOGIN_STATUS == 0) {
-            binding.loginOutCard.visibility = View.GONE
-        }
 
         //Account Security
         binding.layoutMePra.setOnClickListener {
@@ -61,18 +52,13 @@ class ProfileFragment : Fragment() {
         }
 
         //My Address
-        binding.layoutMyAddress.setOnClickListener {
-            if (LoginData.LOGIN_STATUS == 1) {
-                val Token =
-                    activity?.getSharedPreferences("userInfo", AppCompatActivity.MODE_PRIVATE)
-                val token = Token?.getString("token", "null")
-                Log.d("token", token.toString())
-                if (token != null) {
-                    viewModel.resultLocation(token)
-                }
-
-            }
+        binding.layoutMyAddress.setOnClickListener{
+            val intent = Intent(Application.context, LocationActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
         }
+
+
 
         //Feedback
         binding.layoutEvaluate.setOnClickListener {
@@ -89,14 +75,7 @@ class ProfileFragment : Fragment() {
         }
 
         //Personal Center
-        binding.cardMeData.setOnClickListener {
-            if (LoginData.LOGIN_STATUS == 0) {
-                val intent = Intent(Application.context, LoginActivity::class.java)
-                startActivity(intent)
-            } else {
-                Toast.makeText(context, "Already login.", Toast.LENGTH_SHORT).show()
-            }
-        }
+
 
         //About
         binding.layoutMeAbout.setOnClickListener {
@@ -115,20 +94,30 @@ class ProfileFragment : Fragment() {
         //Evaluation Center
 
         //Log out
+        binding.layoutLogout.setOnClickListener{
+            val pers = activity?.getSharedPreferences("userInfo", Context.MODE_PRIVATE)
+            pers?.edit()?.clear()?.apply()
+            binding.loginOutCard.visibility = View.GONE
+            LoginData.LOGIN_STATUS = 0
+            val intent = Intent(Application.context, LoginActivity::class.java)
+            startActivity(intent)
+        }
+
 
     }
 
+
     override fun onResume() {
         super.onResume()
-        LoginData.TURN_MAIN = 0
-        if (LoginData.LOGIN_STATUS == 1) {
-            val pers = activity?.getSharedPreferences("userInfo", Context.MODE_PRIVATE)
-            binding.textMeWords.text = pers?.getString("userName", "Not Log in")
+        if (LoginData.LOGIN_STATUS == 1){
+            val currentUser = FirebaseAuth.getInstance().currentUser
+            if (currentUser != null) {
+                binding.textMeWords.text = currentUser.email
+            }
             binding.loginOutCard.visibility = View.VISIBLE
-        } else {
-            binding.textMeWords.text = "Not Log in"
+        }else{
+            binding.textMeWords.text = "Not logged in."
             binding.loginOutCard.visibility = View.GONE
-
         }
     }
 }

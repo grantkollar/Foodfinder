@@ -1,26 +1,20 @@
-package app.foodfinderapp
+package app.foodfinderapp.activity
 
-import BaseActivity
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import androidx.appcompat.app.AppCompatActivity
 import app.foodfinderapp.Application.Companion.context
 import app.foodfinderapp.databinding.ActivityRegisterBinding
-import app.foodfinderapp.login.network.UserNetwork
-import app.foodfinderapp.ui.viewModel.UserViewModel
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import kotlin.io.*
 
-class RegisterActivity : BaseActivity() {
+class RegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
-    private val viewModel by lazy { ViewModelProvider(this).get(UserViewModel::class.java) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -1,19 +1,19 @@
-package app.foodfinderapp
+package app.foodfinderapp.activity
 
-import BaseActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import app.foodfinderapp.FoodInfo
+import app.foodfinderapp.R
 import app.foodfinderapp.databinding.ActivityMeOrderBinding
-import app.foodfinderapp.dto.Food
-import kotlinx.coroutines.NonDisposableHandle.parent
 
-class MeOrderActivity : BaseActivity(){
+class MeOrderActivity : AppCompatActivity(){
     private val foodList : ArrayList<FoodInfo> = ArrayList<FoodInfo>()
     private lateinit var binding : ActivityMeOrderBinding
     override fun onCreate(savedInstanceState: Bundle?) {

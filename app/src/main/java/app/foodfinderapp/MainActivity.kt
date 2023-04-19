@@ -1,7 +1,6 @@
 package app.foodfinderapp
 
 import android.Manifest
-import app.foodfinderapp.AddRestaurantFragment
 import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.content.Intent
@@ -15,7 +14,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -30,6 +28,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import androidx.recyclerview.widget.RecyclerView
+import app.foodfinderapp.activity.LoginActivity
 import java.util.ArrayList
 
 class MainActivity : AppCompatActivity() {
@@ -39,14 +38,12 @@ class MainActivity : AppCompatActivity() {
     private val db = Firebase.firestore
     private lateinit var adapter: RestaurantAdapter
     private lateinit var recyclerView : RecyclerView
-    private var isSearching = false
     val restaurantList = mutableListOf<Restaurant>()
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        requestPermission()
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -188,28 +185,6 @@ class MainActivity : AppCompatActivity() {
         findNavController(R.id.nav_host_fragment_content_main).navigate(R.id.navigation_home)
     }
 
-    private fun requestPermission() {
-        if (Build.VERSION.SDK_INT >= 23) {
-            val permissionsList = ArrayList<String>()
-            val permissions = arrayOf(
-                Manifest.permission.ACCESS_NETWORK_STATE,
-                Manifest.permission.INTERNET,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.CAMERA,
-                Manifest.permission.ACCESS_WIFI_STATE)
-            for (perm in permissions) {
-                if (PackageManager.PERMISSION_GRANTED != checkSelfPermission(perm)) {
-                    permissionsList.add(perm)
-                }
-            }
-            if (!permissionsList.isEmpty()) {
-                val strings = arrayOfNulls<String>(permissionsList.size)
-                requestPermissions(permissionsList.toArray(strings), 0)
-            }
-        }
-    }
+
 
 }

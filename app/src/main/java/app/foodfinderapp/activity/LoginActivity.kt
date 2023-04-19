@@ -1,29 +1,21 @@
-package app.foodfinderapp
+package app.foodfinderapp.activity
 
-import BaseActivity
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.core.content.ContextCompat.startActivity
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
+import androidx.appcompat.app.AppCompatActivity
 import app.foodfinderapp.Application.Companion.context
-import app.foodfinderapp.login.network.UserNetwork
-import app.foodfinderapp.ui.viewModel.UserViewModel
+import app.foodfinderapp.LoginData
+import app.foodfinderapp.MainActivity
 import app.foodfinderapp.databinding.ActivityLoginBinding
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import kotlin.io.*
 
 
-class LoginActivity : BaseActivity() {
+class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
-    private val viewModel by lazy {ViewModelProvider(this).get(UserViewModel::class.java)}
 
 
     @SuppressLint("CommitPrefEdits")
@@ -73,16 +65,16 @@ class LoginActivity : BaseActivity() {
             FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
-
                         //save
                         saveLoginInfo()
+                        // change login status
+                        LoginData.LOGIN_STATUS = 1
                         // to main
                         val intent = Intent(context, MainActivity::class.java)
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                         startActivity(intent)
                         Toast.makeText(this, "Logged in as ${FirebaseAuth.getInstance().currentUser?.email}", Toast.LENGTH_SHORT).show()
                     } else {
-                        // 登录失败，显示错误信息
                         Toast.makeText(this, "Login failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                     }
                 }
@@ -96,13 +88,7 @@ class LoginActivity : BaseActivity() {
 
     }
 
-    override fun onResume() {
-        super.onResume()
-        //再次后退，到主页面，否则还是在验证码登录页
-        if(LoginData.TURN_MAIN == 1){
-            onBackPressed()
-        }
-    }
+
 
     private fun saveLoginInfo() {
         val prefs = applicationContext.getSharedPreferences("login_info", Context.MODE_PRIVATE)

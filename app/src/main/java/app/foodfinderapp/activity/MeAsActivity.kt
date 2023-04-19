@@ -1,12 +1,11 @@
-package app.foodfinderapp
+package app.foodfinderapp.activity
 
-import BaseActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import app.foodfinderapp.R
 import app.foodfinderapp.databinding.ActivityMeAsBinding
-import app.foodfinderapp.databinding.FragmentProfileBinding
 
-class MeAsActivity : BaseActivity() {
+class MeAsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMeAsBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
