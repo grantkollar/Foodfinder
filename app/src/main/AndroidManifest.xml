@@ -93,6 +93,11 @@
             android:label="@string/mycouponactivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".activity.LocationActivity"
+            android:label="@string/measactivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>

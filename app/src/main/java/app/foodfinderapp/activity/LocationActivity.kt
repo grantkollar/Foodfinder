@@ -29,7 +29,7 @@ class LocationActivity : AppCompatActivity() {
                 val latitude = location.latitude
                 val longitude = location.longitude
                 val address = getAddress(latitude, longitude)
-                Toast.makeText(this@LocationActivity, "当前位置：$address", Toast.LENGTH_LONG).show()
+                Toast.makeText(this@LocationActivity, "Currently Location：$address", Toast.LENGTH_LONG).show()
             }
 
             override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
@@ -92,7 +92,7 @@ class LocationActivity : AppCompatActivity() {
             } else {
                 Toast.makeText(
                     this,
-                    "需要允许应用程序访问位置权限才能获取当前位置信息。",
+                    "You need to allow the application to access the location permission to get the current location information.",
                     Toast.LENGTH_LONG
                 ).show()
             }
