@@ -39,4 +39,8 @@
     <string name="restaurant">Resaurant</string>
     <string name="cafe">Cafe</string>
     <string name="bar">Bar</string>
+    <string name="title_activity_my_restaurant">MyRestaurant</string>
+    <string name="title_activity_main2">MainActivity2</string>
+    <string name="title_activity_compose_restaurant">ComposeRestaurant</string>
+    <string name="my_restaurant">my Restaurant</string>
 </resources>
