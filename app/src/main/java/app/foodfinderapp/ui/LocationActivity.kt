@@ -20,6 +20,7 @@ import java.util.*
 
 class LocationActivity : AppCompatActivity() {
     private val REQUEST_LOCATION_PERMISSION = 1
+    //for managing and monitoring device location information
     private lateinit var locationManager: LocationManager
     private lateinit var locationListener: LocationListener
 
@@ -44,6 +45,7 @@ class LocationActivity : AppCompatActivity() {
         }
     }
 
+    // check whether permission has been obtained
     override fun onStart() {
         super.onStart()
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
@@ -64,6 +66,7 @@ class LocationActivity : AppCompatActivity() {
         locationManager.removeUpdates(locationListener)
     }
 
+    // update location information
     private fun startLocationUpdates() {
         try {
             locationManager.requestLocationUpdates(
@@ -84,6 +87,7 @@ class LocationActivity : AppCompatActivity() {
         return address
     }
 
+    // process the request result of the permission
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<String>,
