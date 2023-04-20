@@ -35,6 +35,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         //auto fulfill
+        //A SharedPreferences object is created to store login information
         val prefs = applicationContext.getSharedPreferences("login_info", Context.MODE_PRIVATE)
         val isRemember = prefs.getBoolean("remember_password", false)
         if (isRemember) {

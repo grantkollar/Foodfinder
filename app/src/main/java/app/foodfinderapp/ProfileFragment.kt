@@ -12,7 +12,7 @@ import app.foodfinderapp.activity.LocationActivity
 import app.foodfinderapp.dao.FirebaseAuthDAO
 import app.foodfinderapp.ui.*
 import app.foodfinderapp.databinding.FragmentProfileBinding
-import app.foodfinderapp.ui.theme.MeAsActivity
+import app.foodfinderapp.ui.MeAsActivity
 import com.google.firebase.auth.FirebaseAuth
 
 
