@@ -60,7 +60,6 @@ class ProfileFragment : Fragment() {
             FirebaseAuthDAO.signOut()
             val pers = activity?.getSharedPreferences("userInfo", Context.MODE_PRIVATE)
             pers?.edit()?.clear()?.apply()
-            binding.loginOutCard.visibility = View.GONE
             LoginData.LOGIN_STATUS = 0
             val intent = Intent(Application.context, LoginActivity::class.java)
             startActivity(intent)
@@ -79,7 +78,6 @@ class ProfileFragment : Fragment() {
             binding.loginOutCard.visibility = View.VISIBLE
         } else {
             binding.textMeWords.text = "Not logged in."
-            binding.loginOutCard.visibility = View.GONE
             binding.textMeWords.setOnClickListener {
                 val intent = Intent(Application.context, LoginActivity::class.java)
                 startActivity(intent)

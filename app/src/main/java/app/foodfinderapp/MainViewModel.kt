@@ -20,12 +20,12 @@ class MainViewModel : ViewModel() {
         fetchAllRestaurants()
     }
 
-    private fun checkLoginStatus() {
+    fun checkLoginStatus() {
         val currentUser = FirebaseAuthDAO.getCurrentUser()
         _isLoggedIn.value = currentUser != null
     }
 
-    private fun fetchAllRestaurants() {
+    fun fetchAllRestaurants() {
         val restaurantDao = RestaurantDao()
         restaurantDao.getAllRestaurants { restaurantList ->
             _restaurantList.value = restaurantList

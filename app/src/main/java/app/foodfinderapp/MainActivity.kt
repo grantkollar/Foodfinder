@@ -159,6 +159,7 @@ class MainActivity : AppCompatActivity() {
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         bottomNavigationView.menu.findItem(R.id.navigation_home).isChecked = true
         findNavController(R.id.nav_host_fragment_content_main).navigate(R.id.navigation_home)
+        viewModel.checkLoginStatus()
     }
 
 }
