@@ -1,7 +1,8 @@
-package app.foodfinderapp.ui
+package app.foodfinderapp.activity
 
 import android.Manifest
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.location.Location
@@ -11,6 +12,8 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import app.foodfinderapp.Application
+import app.foodfinderapp.MainActivity
 import app.foodfinderapp.R
 import java.util.*
 
@@ -30,13 +33,13 @@ class LocationActivity : AppCompatActivity() {
                 val longitude = location.longitude
                 val address = getAddress(latitude, longitude)
                 Toast.makeText(this@LocationActivity, "Currently Location：$address", Toast.LENGTH_LONG).show()
+
+                // to main
+                val intent = Intent(Application.context, MainActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                startActivity(intent)
+                finish()
             }
-
-            override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
-
-            override fun onProviderEnabled(provider: String) {}
-
-            override fun onProviderDisabled(provider: String) {}
         }
     }
 
