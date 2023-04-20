@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity() {
         viewModel = MainViewModel()
 
         adapter = RestaurantAdapter(restaurantList)
-        recyclerView = findViewById<RecyclerView>(R.id.restaurantRecyclerView)
+        recyclerView = findViewById(R.id.restaurantRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
         recyclerView.visibility = View.GONE
@@ -67,12 +67,10 @@ class MainActivity : AppCompatActivity() {
             when (item.itemId) {
                 R.id.navigation_profile -> {
                     if (viewModel.isLoggedIn.value == true) {
-                        val currentUser = FirebaseAuth.getInstance().currentUser
+                        val currentUser = viewModel.getCurrentUser()
                         if (currentUser != null) {
-                            // Show a toast with the user's email
-                            Toast.makeText(this, "Logged in as ${currentUser.email}", Toast.LENGTH_SHORT).show()
+                            navController.navigate(R.id.navigation_profile)
                         }
-                        navController.navigate(R.id.navigation_profile)
                     } else {
                         val intent = Intent(this, LoginActivity::class.java)
                         startActivity(intent)

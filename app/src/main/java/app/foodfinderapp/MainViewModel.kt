@@ -4,6 +4,7 @@ import androidx.lifecycle.*
 import app.foodfinderapp.dao.FirebaseAuthDAO
 import app.foodfinderapp.dao.RestaurantDao
 import app.foodfinderapp.dto.Restaurant
+import com.google.firebase.auth.FirebaseUser
 
 class MainViewModel : ViewModel() {
 
@@ -36,6 +37,11 @@ class MainViewModel : ViewModel() {
         RestaurantDao().searchRestaurants(query) { filteredList ->
             _restaurantList.value = filteredList
         }
+    }
+
+    fun getCurrentUser(): FirebaseUser? {
+        val currentUser = FirebaseAuthDAO.getCurrentUser()
+        return currentUser
     }
 
     fun observeRestaurantList(owner: LifecycleOwner, observer: Observer<List<Restaurant>>) {
