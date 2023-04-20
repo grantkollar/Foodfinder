@@ -13,7 +13,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import app.foodfinderapp.Application
-import app.foodfinderapp.MainActivity
+import app.foodfinderapp.ui.MainActivity
 import app.foodfinderapp.R
 import java.util.*
 

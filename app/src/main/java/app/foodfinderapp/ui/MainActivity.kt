@@ -1,4 +1,4 @@
-package app.foodfinderapp
+package app.foodfinderapp.ui
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.navigation.findNavController
@@ -19,13 +18,9 @@ import app.foodfinderapp.databinding.ActivityMainBinding
 import app.foodfinderapp.dto.Restaurant
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import androidx.recyclerview.widget.RecyclerView
-import app.foodfinderapp.dao.FirebaseAuthDAO
-import app.foodfinderapp.dao.RestaurantDao
-import app.foodfinderapp.ui.LoginActivity
+import app.foodfinderapp.MainViewModel
+import app.foodfinderapp.R
 
 class MainActivity : AppCompatActivity() {
 

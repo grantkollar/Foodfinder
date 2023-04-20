@@ -1,10 +1,11 @@
-package app.foodfinderapp
+package app.foodfinderapp.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import app.foodfinderapp.AddRestaurantViewModel
 import app.foodfinderapp.dao.RestaurantDao
 import app.foodfinderapp.dto.Restaurant
 import app.foodfinderapp.databinding.AddRestaurantBinding

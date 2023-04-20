@@ -1,4 +1,4 @@
-package app.foodfinderapp
+package app.foodfinderapp.ui
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -8,11 +8,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import app.foodfinderapp.Application
+import app.foodfinderapp.LoginData
 import app.foodfinderapp.activity.LocationActivity
 import app.foodfinderapp.dao.FirebaseAuthDAO
 import app.foodfinderapp.ui.*
 import app.foodfinderapp.databinding.FragmentProfileBinding
-import app.foodfinderapp.ui.MeAsActivity
 import com.google.firebase.auth.FirebaseAuth
 
 

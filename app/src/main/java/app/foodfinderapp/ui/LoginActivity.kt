@@ -8,7 +8,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import app.foodfinderapp.Application.Companion.context
 import app.foodfinderapp.LoginData
-import app.foodfinderapp.MainActivity
 import app.foodfinderapp.dao.FirebaseAuthDAO
 import app.foodfinderapp.databinding.ActivityLoginBinding
 import com.google.firebase.auth.FirebaseAuth
