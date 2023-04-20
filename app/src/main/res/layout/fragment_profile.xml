@@ -417,43 +417,6 @@
                         </LinearLayout>
                     </RelativeLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <RelativeLayout
-                            android:id="@+id/layout_logout"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="?android:attr/selectableItemBackground"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:paddingStart="10dp"
-                            android:paddingTop="20dp"
-                            android:paddingEnd="10dp"
-                            android:paddingBottom="20dp"
-                            android:gravity="center">
-
-                            <LinearLayout
-                                android:id="@+id/log_out"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:layout_marginStart="10dp"
-                                android:orientation="horizontal"
-                                android:layout_marginLeft="10dp">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Log Out"
-                                    android:layout_gravity="center"
-                                    android:textSize="20sp"
-                                    android:textStyle="bold"/>
-                            </LinearLayout>
-                        </RelativeLayout>
-                    </LinearLayout>
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -465,6 +428,44 @@
                 android:layout_marginTop="15dp"
                 app:cardCornerRadius="10dp"
                 app:cardElevation="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:id="@+id/layout_logout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:paddingStart="10dp"
+                        android:paddingTop="20dp"
+                        android:paddingEnd="10dp"
+                        android:paddingBottom="20dp"
+                        android:gravity="center">
+
+                        <LinearLayout
+                            android:id="@+id/log_out"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="10dp"
+                            android:orientation="horizontal"
+                            android:layout_marginLeft="10dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Log Out"
+                                android:layout_gravity="center"
+                                android:textSize="20sp"
+                                android:textStyle="bold"/>
+                        </LinearLayout>
+                    </RelativeLayout>
+                </LinearLayout>
 
 
             </androidx.cardview.widget.CardView>

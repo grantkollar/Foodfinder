@@ -52,12 +52,11 @@ class ProfileFragment : Fragment() {
         }
 
         //My Address
-        binding.layoutMyAddress.setOnClickListener{
+        binding.layoutMyAddress.setOnClickListener {
             val intent = Intent(Application.context, LocationActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
         }
-
 
 
         //Feedback
@@ -94,7 +93,7 @@ class ProfileFragment : Fragment() {
         //Evaluation Center
 
         //Log out
-        binding.layoutLogout.setOnClickListener{
+        binding.layoutLogout.setOnClickListener {
             val pers = activity?.getSharedPreferences("userInfo", Context.MODE_PRIVATE)
             pers?.edit()?.clear()?.apply()
             binding.loginOutCard.visibility = View.GONE
@@ -109,15 +108,19 @@ class ProfileFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        if (LoginData.LOGIN_STATUS == 1){
+        if (LoginData.LOGIN_STATUS == 1) {
             val currentUser = FirebaseAuth.getInstance().currentUser
             if (currentUser != null) {
                 binding.textMeWords.text = currentUser.email
             }
             binding.loginOutCard.visibility = View.VISIBLE
-        }else{
+        } else {
             binding.textMeWords.text = "Not logged in."
             binding.loginOutCard.visibility = View.GONE
+            binding.textMeWords.setOnClickListener {
+                val intent = Intent(Application.context, LoginActivity::class.java)
+                startActivity(intent)
+            }
         }
     }
 }
