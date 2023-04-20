@@ -32,7 +32,6 @@ class HomeActivity : AppCompatActivity() {
                     if (document != null) {
                         val fName = document.data!!["name"].toString()
 
-
                         name.text = fName
                     }
 

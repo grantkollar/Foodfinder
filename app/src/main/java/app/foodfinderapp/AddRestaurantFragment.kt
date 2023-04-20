@@ -1,34 +1,29 @@
-package app.foodfinderapp;
+package app.foodfinderapp
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.fragment.app.Fragment
-import app.foodfinderapp.R
-import com.google.android.material.textfield.TextInputEditText
-import com.google.firebase.firestore.FirebaseFirestore
+import app.foodfinderapp.dao.RestaurantDao
 import app.foodfinderapp.dto.Restaurant
 import app.foodfinderapp.databinding.AddRestaurantBinding
-import app.foodfinderapp.databinding.FragmentProfileBinding
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 
 class AddRestaurantFragment : Fragment() {
 
     private lateinit var binding: AddRestaurantBinding
-    private var db = Firebase.firestore
+    private val restaurantDao = RestaurantDao()
+    private lateinit var viewModel: AddRestaurantViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?)
-    : View? {
-
-        db = FirebaseFirestore.getInstance()
+        savedInstanceState: Bundle?
+    ): View? {
 
         binding = AddRestaurantBinding.inflate(inflater, container, false)
+
+        viewModel = AddRestaurantViewModel()
 
         binding.buttonSave.setOnClickListener { addRestaurant() }
 
@@ -36,23 +31,20 @@ class AddRestaurantFragment : Fragment() {
     }
 
     private fun addRestaurant() {
-        val name = binding.editTextName.text.toString()
-        val category = binding.editTextCategory.text.toString()
-        val hours = binding.editTextHours.text.toString()
-        val contact = binding.editTextContact.text.toString()
-        val address = binding.editTextAddress.text.toString()
+        viewModel.name = binding.editTextName.text.toString()
+        viewModel.category = binding.editTextCategory.text.toString()
+        viewModel.hours = binding.editTextHours.text.toString()
+        viewModel.contact = binding.editTextContact.text.toString()
+        viewModel.address = binding.editTextAddress.text.toString()
 
-        val restaurant = Restaurant("", name, category, hours, contact, address)
+        // 获取当前用户的 ID
+        val ownerId = viewModel.getCurrentUserId()
 
-        db.collection("restaurants")
-            .document(name)
-            .set(restaurant)
-            .addOnSuccessListener {
-                activity?.supportFragmentManager?.popBackStack()
-            }
-            .addOnFailureListener {
-                // Handle errors here
-            }
+        val restaurant = Restaurant("", viewModel.name, viewModel.category, viewModel.hours, viewModel.contact, viewModel.address, ownerId)
+
+        restaurantDao.addRestaurant(restaurant)
+
+        // 返回上一个 Fragment
+        activity?.supportFragmentManager?.popBackStack()
     }
-
 }

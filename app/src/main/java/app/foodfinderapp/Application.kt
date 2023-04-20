@@ -3,7 +3,6 @@ package app.foodfinderapp
 import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
-import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatDelegate
 import app.foodfinderapp.util.ConfigData
 import com.google.firebase.auth.FirebaseAuth

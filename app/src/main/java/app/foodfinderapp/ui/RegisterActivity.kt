@@ -1,4 +1,4 @@
-package app.foodfinderapp.activity
+package app.foodfinderapp.ui
 
 import android.content.ContentValues.TAG
 import android.content.Context
@@ -8,10 +8,9 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import app.foodfinderapp.Application.Companion.context
+import app.foodfinderapp.dao.FirebaseAuthDAO.signUp
 import app.foodfinderapp.databinding.ActivityRegisterBinding
 import com.google.firebase.auth.UserProfileChangeRequest
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
@@ -46,28 +45,27 @@ class RegisterActivity : AppCompatActivity() {
 
             Toast.makeText(this, "register...", Toast.LENGTH_SHORT).show()
 
-            Firebase.auth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        // User was created successfully, log the user in and navigate to home screen
-                        Log.d(TAG, "User created successfully")
-                        val user = Firebase.auth.currentUser
-                        // Update user profile if necessary
-                        user?.updateProfile(
-                            UserProfileChangeRequest.Builder()
+            signUp(email, password) { firebaseUser, exception ->
+                if (exception == null) {
+                    // User was created successfully, log the user in and navigate to home screen
+                    Log.d(TAG, "User created successfully")
+                    // Update user profile if necessary
+                    firebaseUser?.updateProfile(
+                        UserProfileChangeRequest.Builder()
                             .setDisplayName(name)
                             .build())
-                        // Navigate to home screen
-                        val intent = Intent(context, LoginActivity::class.java)
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                        startActivity(intent)
-                        finish()
-                    } else {
-                        // User creation failed, display an error message to the user
-                        Log.w(TAG, "User creation failed", task.exception)
-                        Toast.makeText(this, "User creation failed", Toast.LENGTH_SHORT).show()
-                    }
+                    // Navigate to home screen
+                    val intent = Intent(context, LoginActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                    startActivity(intent)
+                    finish()
+                } else {
+                    // User creation failed, display an error message to the user
+                    Log.w(TAG, "User creation failed", exception)
+                    Toast.makeText(this, "User creation failed", Toast.LENGTH_SHORT).show()
                 }
+            }
+
         }
     }
 

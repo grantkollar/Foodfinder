@@ -1,4 +1,4 @@
-package app.foodfinderapp.activity
+package app.foodfinderapp.ui
 
 import android.Manifest
 import android.content.Context

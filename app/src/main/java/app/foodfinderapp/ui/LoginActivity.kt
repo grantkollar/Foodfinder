@@ -1,4 +1,4 @@
-package app.foodfinderapp.activity
+package app.foodfinderapp.ui
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -9,14 +9,12 @@ import androidx.appcompat.app.AppCompatActivity
 import app.foodfinderapp.Application.Companion.context
 import app.foodfinderapp.LoginData
 import app.foodfinderapp.MainActivity
+import app.foodfinderapp.dao.FirebaseAuthDAO
 import app.foodfinderapp.databinding.ActivityLoginBinding
 import com.google.firebase.auth.FirebaseAuth
-import kotlin.io.*
-
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
-
 
     @SuppressLint("CommitPrefEdits")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,22 +60,25 @@ class LoginActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this) { task ->
-                    if (task.isSuccessful) {
-                        //save
-                        saveLoginInfo()
-                        // change login status
-                        LoginData.LOGIN_STATUS = 1
-                        // to main
-                        val intent = Intent(context, MainActivity::class.java)
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                        startActivity(intent)
-                        Toast.makeText(this, "Logged in as ${FirebaseAuth.getInstance().currentUser?.email}", Toast.LENGTH_SHORT).show()
-                    } else {
-                        Toast.makeText(this, "Login failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
-                    }
+            FirebaseAuthDAO.signIn(email, password) { firebaseUser, exception ->
+                if (firebaseUser != null) {
+                    //save
+                    saveLoginInfo()
+                    // change login status
+                    LoginData.LOGIN_STATUS = 1
+                    // to main
+                    val intent = Intent(context, MainActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                    startActivity(intent)
+                    Toast.makeText(
+                        this@LoginActivity,
+                        "Logged in as ${FirebaseAuth.getInstance().currentUser?.email}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    Toast.makeText(this, "Login failed: ${exception?.message}", Toast.LENGTH_SHORT).show()
                 }
+            }
         }
 
         binding.convertRegister.setOnClickListener {
@@ -87,8 +88,6 @@ class LoginActivity : AppCompatActivity() {
 
 
     }
-
-
 
     private fun saveLoginInfo() {
         val prefs = applicationContext.getSharedPreferences("login_info", Context.MODE_PRIVATE)

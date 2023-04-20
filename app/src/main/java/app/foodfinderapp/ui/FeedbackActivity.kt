@@ -1,4 +1,4 @@
-package app.foodfinderapp.activity
+package app.foodfinderapp.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

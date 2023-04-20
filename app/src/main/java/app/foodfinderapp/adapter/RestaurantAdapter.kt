@@ -39,6 +39,8 @@ class RestaurantAdapter(private var restaurantList: List<Restaurant>) :
     //Update the data source and refresh the list
     fun setDataList(newList: List<Restaurant>) {
         restaurantList = newList.toMutableList()
+        notifyDataSetChanged()
     }
+
 
 }
