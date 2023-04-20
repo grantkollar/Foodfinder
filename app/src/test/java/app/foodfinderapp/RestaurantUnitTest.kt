@@ -23,6 +23,7 @@ class RestaurantTest {
         assertEquals("  ", restaurant.toString())
     }
 
+
     @Test
     fun `Given a Restaurant object with no ownerId, When I create a new object with the same values, Then the new object should be equal to the original`() {
         val restaurant1 = Restaurant(
