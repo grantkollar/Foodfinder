@@ -31,12 +31,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FoodFinderApp"
         tools:targetApi="31">
-        <activity
-            android:name=".MyRestaurant"
-            android:exported="false"
-            android:label="@string/title_activity_my_restaurant"
-            android:theme="@style/Theme.FoodFinderApp" />
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAZtbc8fwLP-bOCishTCtRjIX68FNorp9c" />
@@ -68,27 +62,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".ui.MeAboutActivity"
-            android:label="@string/MeAboutActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
             android:name=".ui.MeAsActivity"
-            android:label="@string/measactivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name=".ui.MeOrderActivity"
-            android:label="@string/meorderactivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name=".ui.MyCouponActivity"
-            android:label="@string/mycouponactivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name=".ui.LocationActivity"
             android:label="@string/measactivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />

@@ -1,3 +1,9 @@
+/* This file belongs to the "ui" package and contains the implementation of the "ProfileFragment" class.
+
+This fragment displays the user's profile information, including their account security, address, and logout functionality.
+It also allows the user to view their email address and log in or out of the app.
+*/
+
 package app.foodfinderapp.ui
 
 import android.annotation.SuppressLint
@@ -23,6 +29,7 @@ class ProfileFragment : Fragment() {
     private val binding get() = _binding!!
 
 
+    // Inflate the layout for this fragment
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -38,6 +45,7 @@ class ProfileFragment : Fragment() {
         _binding = null
     }
 
+    // Initialize UI elements and set up click listeners
     @SuppressLint("WrongConstant")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -69,6 +77,7 @@ class ProfileFragment : Fragment() {
     }
 
 
+    // Update UI elements when fragment is resumed
     override fun onResume() {
         super.onResume()
         if (LoginData.LOGIN_STATUS == 1) {

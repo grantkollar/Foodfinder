@@ -1,3 +1,13 @@
+/**
+
+This file contains the implementation of the AddRestaurantFragment class, which is a Fragment that
+allows the user to add a new restaurant to the database. It inflates the AddRestaurantBinding layout
+and sets up an onClickListener for the "Save" button. When the button is clicked, it retrieves the
+values entered by the user, creates a new Restaurant object, and adds it to the database using the
+RestaurantDao class. It then returns to the previous Fragment using popBackStack().
+ */
+
+
 package app.foodfinderapp.ui
 
 import android.os.Bundle
@@ -22,14 +32,23 @@ class AddRestaurantFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+        // Inflate the layout for this fragment using the AddRestaurantBinding layout.
         binding = AddRestaurantBinding.inflate(inflater, container, false)
 
+        // Initialize the ViewModel
         viewModel = AddRestaurantViewModel()
 
+        // Set up an onClickListener for the "Save" button.
         binding.buttonSave.setOnClickListener { addRestaurant() }
 
         return binding.root
     }
+
+    /**
+     * This method retrieves the values entered by the user, creates a new Restaurant object, and adds
+     * it to the database using the RestaurantDao class. It then returns to the previous Fragment using
+     * popBackStack().
+     */
 
     private fun addRestaurant() {
         viewModel.name = binding.editTextName.text.toString()
@@ -38,14 +57,16 @@ class AddRestaurantFragment : Fragment() {
         viewModel.contact = binding.editTextContact.text.toString()
         viewModel.address = binding.editTextAddress.text.toString()
 
-        // 获取当前用户的 ID
+        // Get the ID of the current user.
         val ownerId = viewModel.getCurrentUserId()
 
-        val restaurant = Restaurant("", viewModel.name, viewModel.category, viewModel.hours, viewModel.contact, viewModel.address, ownerId)
+        // Create a new Restaurant object using the retrieved values.
+        val restaurant = Restaurant(viewModel.restaurantID, viewModel.name, viewModel.category, viewModel.hours, viewModel.contact, viewModel.address, ownerId)
 
+        // Add the new Restaurant object to the database using the RestaurantDao class.
         restaurantDao.addRestaurant(restaurant)
 
-        // 返回上一个 Fragment
+        // Return to the previous Fragment using popBackStack().
         activity?.supportFragmentManager?.popBackStack()
     }
 }

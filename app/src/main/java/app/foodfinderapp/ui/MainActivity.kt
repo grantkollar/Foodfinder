@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_profile -> {
-                    if (viewModel.isLoggedIn.value == true) {
+                    if (viewModel.isLoggedIn().value == true) {
                         val currentUser = viewModel.getCurrentUser()
                         if (currentUser != null) {
                             navController.navigate(R.id.navigation_profile)
@@ -73,7 +73,7 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
 
-                R.id.navigation_home, R.id.navigation_notifications, R.id.navigation_dashboard -> {
+                R.id.navigation_home, R.id.navigation_notifications, R.id.navigation_my_restaurant -> {
                     navController.navigate(item.itemId)
                     true
                 }
