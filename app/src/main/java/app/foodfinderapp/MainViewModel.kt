@@ -8,6 +8,12 @@ import app.foodfinderapp.dao.FirebaseAuthDAO
 import app.foodfinderapp.dao.RestaurantDao
 import app.foodfinderapp.dto.Restaurant
 import com.google.firebase.auth.FirebaseUser
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import app.foodfinderapp.Service.RestaurantService
 
 class MainViewModel : ViewModel() {
 
@@ -61,6 +67,32 @@ class MainViewModel : ViewModel() {
         checkLoginStatus()
         return FirebaseAuthDAO.isLoggedIn
     }
+
+    fun addRestaurantFromJsonToCurrentUser() {
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://raw.githubusercontent.com/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        val service = retrofit.create(RestaurantService::class.java)
+        val call = service.getRestaurantFromJson()
+
+        call.enqueue(object : Callback<Restaurant> {
+            override fun onResponse(call: Call<Restaurant>, response: Response<Restaurant>) {
+                val restaurant = response.body()
+                if (restaurant != null) {
+                    val restaurantDao = RestaurantDao()
+                    restaurant.ownerId = FirebaseAuthDAO.getCurrentUserId()
+                    restaurantDao.addRestaurant(restaurant)
+                }
+            }
+
+            override fun onFailure(call: Call<Restaurant>, t: Throwable) {
+                // Handle request failure
+            }
+        })
+    }
+
 
 
 }
