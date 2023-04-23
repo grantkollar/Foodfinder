@@ -49,15 +49,17 @@ class RestaurantDetailActivity : AppCompatActivity() {
         binding.restaurant = restaurant
 
         val dao = RestaurantDao()
-        dao.getImageUrl(restaurant!!.restaurantID) { imageUrl ->
-            Glide.with(this)
-                .load(imageUrl)
-                .centerCrop()
-                .into(binding.imageView)
+        restaurant?.let {
+            dao.getImageUrl(it.restaurantID) { imageUrl ->
+                Glide.with(this)
+                    .load(imageUrl)
+                    .centerCrop()
+                    .into(binding.imageView)
+            }
         }
 
         binding.imageView.setOnClickListener {
-            if (restaurant!!.ownerId == FirebaseAuthDAO.getCurrentUserId()) { // ownerId 和当前用户 ID 相同
+            if (restaurant?.ownerId == FirebaseAuthDAO.getCurrentUserId()) { // ownerId 和当前用户 ID 相同
                 if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
                     != PackageManager.PERMISSION_GRANTED ||
                     ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -105,11 +107,11 @@ class RestaurantDetailActivity : AppCompatActivity() {
         progressDialog.show()
 
         val storageRef = FirebaseStorage.getInstance().reference
-        val photoRef = storageRef.child("images/${photoUri!!.lastPathSegment}")
+        val photoRef = storageRef.child("images/${photoUri?.lastPathSegment}")
 
-        val uploadTask = photoRef.putFile(photoUri!!)
+        val uploadTask = photoUri?.let { photoRef.putFile(it) }
 
-        uploadTask.addOnSuccessListener {
+        uploadTask?.addOnSuccessListener {
             progressDialog.dismiss()
             Toast.makeText(this, "Photos uploaded successfully", Toast.LENGTH_SHORT).show()
 
@@ -120,12 +122,11 @@ class RestaurantDetailActivity : AppCompatActivity() {
 
                 // Update the URL of the photo into the restaurant object
                 val restaurant = binding.restaurant
-                restaurant!!.imageURL = imageUrl
+                restaurant?.imageURL = imageUrl
+                restaurant?.let { restaurantDao.updateRestaurant(it) }
 
-                // Update restaurant information
-                restaurantDao.updateRestaurant(restaurant)
             }
-        }.addOnFailureListener {
+        }?.addOnFailureListener {
             progressDialog.dismiss()
             Toast.makeText(this, "Photo upload failed", Toast.LENGTH_SHORT).show()
         }
