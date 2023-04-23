@@ -15,7 +15,7 @@ class MainViewModel : ViewModel() {
     private val _restaurantList = MutableLiveData<List<Restaurant>>()
 
     // The LiveData object that allows access to the list of restaurants
-    private val restaurantList: LiveData<List<Restaurant>>
+    val restaurantList: LiveData<List<Restaurant>>
         get() = _restaurantList
 
     // This method is called when a new instance of the ViewModel is created

@@ -21,6 +21,7 @@ import com.google.android.material.snackbar.Snackbar
 import androidx.recyclerview.widget.RecyclerView
 import app.foodfinderapp.MainViewModel
 import app.foodfinderapp.R
+import app.foodfinderapp.adapter.OnItemClickListener
 
 class MainActivity : AppCompatActivity() {
 
@@ -52,7 +53,15 @@ class MainActivity : AppCompatActivity() {
 
         viewModel = MainViewModel()
 
-        adapter = RestaurantAdapter(restaurantList)
+
+        adapter = RestaurantAdapter(restaurantList, object : OnItemClickListener {
+            override fun onItemClick(position: Int) {
+                val intent = Intent(this@MainActivity, RestaurantDetailActivity::class.java)
+                intent.putExtra("restaurant", viewModel.restaurantList.value?.get(position))
+                startActivity(intent)
+            }
+        })
+
         recyclerView = findViewById(R.id.restaurantRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
@@ -84,6 +93,7 @@ class MainActivity : AppCompatActivity() {
             adapter.setDataList(restaurantList)
         }
     }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_main, menu)
