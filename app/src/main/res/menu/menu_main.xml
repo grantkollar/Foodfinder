@@ -7,4 +7,10 @@
         android:title="@string/add_restaurant"
         app:showAsAction="never"
         app:action="@id/navigation_add_restaurant"/>
+
+    <item
+        android:id="@+id/action_add_restaurant_sample"
+        android:title="@string/add_restaurant_sample"
+        app:showAsAction="never"
+        app:action="@id/navigation_add_restaurant"/>
 </menu>

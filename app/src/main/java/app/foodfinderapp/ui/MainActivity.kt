@@ -141,6 +141,11 @@ class MainActivity : AppCompatActivity() {
                 true
             }
 
+            R.id.action_add_restaurant_sample -> {
+                viewModel.addRestaurantFromJsonToCurrentUser()
+                true
+            }
+
             R.id.action_map -> {
                 val navController = findNavController(R.id.nav_host_fragment_content_main)
                 navController.navigate(R.id.navigation_map)
