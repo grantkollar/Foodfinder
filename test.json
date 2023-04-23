@@ -1,0 +1,11 @@
+{
+   "restaurantID": "123",
+   "imageURL": "https://example.com/image.jpg",
+   "name": "Restaurant Name",
+   "category": "Chinese",
+   "hours": "9am-9pm",
+   "contact": "123-456-7890",
+   "address": "123 Main Street",
+   "ownerId": "456",
+   "rating": 4.5
+}
