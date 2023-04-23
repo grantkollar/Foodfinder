@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools" >
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -30,16 +30,34 @@
         android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/Theme.FoodFinderApp"
-        tools:targetApi="31">
+        tools:targetApi="31" >
+        <activity
+            android:name=".ui.RestaurantDetailActivity"
+            android:exported="false"
+            android:label="@string/title_activity_restaurant_detail"
+            android:theme="@style/Theme.FoodFinderApp.NoActionBar" />
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAZtbc8fwLP-bOCishTCtRjIX68FNorp9c" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="app.foodfinderapp.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+
 
         <activity
             android:name=".ui.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.FoodFinderApp.NoActionBar">
+            android:theme="@style/Theme.FoodFinderApp.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
