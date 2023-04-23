@@ -49,26 +49,28 @@ class RestaurantDetailActivity : AppCompatActivity() {
         binding.restaurant = restaurant
 
         val dao = RestaurantDao()
-        dao.getImageUrl(restaurant!!.restaurantID) { imageUrl ->
-            Glide.with(this)
-                .load(imageUrl)
-                .centerCrop()
-                .into(binding.imageView)
+        restaurant?.let {
+            dao.getImageUrl(it.restaurantID) { imageUrl ->
+                Glide.with(this)
+                    .load(imageUrl)
+                    .centerCrop()
+                    .into(binding.imageView)
+            }
         }
 
         binding.imageView.setOnClickListener {
-            if (restaurant!!.ownerId == FirebaseAuthDAO.getCurrentUserId()) { // ownerId 和当前用户 ID 相同
+            if (restaurant?.ownerId == FirebaseAuthDAO.getCurrentUserId()) { // ownerId 和当前用户 ID 相同
                 if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
                     != PackageManager.PERMISSION_GRANTED ||
                     ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                     != PackageManager.PERMISSION_GRANTED
-                ) { // 权限未被授予
+                ) { // permission not granted
                     ActivityCompat.requestPermissions(
                         this,
                         arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE),
                         PERMISSIONS_REQUEST_CODE
                     )
-                } else { // 权限已经被授予
+                } else { // permission has been granted
                     takePhoto()
                 }
             }
@@ -84,7 +86,7 @@ class RestaurantDetailActivity : AppCompatActivity() {
     }
 
     private fun createImageFile(): File {
-        // 创建一个唯一的文件名
+        // Create a unique filename
         val timeStamp = SimpleDateFormat("yyyyMMdd_HHmm ss", Locale.getDefault()).format(Date())
         val fileName = "JPEG_${timeStamp}_"
         val storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
@@ -94,47 +96,46 @@ class RestaurantDetailActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_CODE_TAKE_PHOTO && resultCode == RESULT_OK) {
-            // 上传照片
+            // upload photos
             uploadPhoto()
         }
     }
 
     private fun uploadPhoto() {
         val progressDialog = ProgressDialog(this)
-        progressDialog.setTitle("正在上传照片")
+        progressDialog.setTitle("uploading photo")
         progressDialog.show()
 
         val storageRef = FirebaseStorage.getInstance().reference
-        val photoRef = storageRef.child("images/${photoUri!!.lastPathSegment}")
+        val photoRef = storageRef.child("images/${photoUri?.lastPathSegment}")
 
-        val uploadTask = photoRef.putFile(photoUri!!)
+        val uploadTask = photoUri?.let { photoRef.putFile(it) }
 
-        uploadTask.addOnSuccessListener {
+        uploadTask?.addOnSuccessListener {
             progressDialog.dismiss()
-            Toast.makeText(this, "照片上传成功", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Photos uploaded successfully", Toast.LENGTH_SHORT).show()
 
-            // 获取照片的 URL 并加载到 ImageView 中
+            // Get the URL of the photo and load it into ImageView
             photoRef.downloadUrl.addOnSuccessListener { uri ->
                 Glide.with(this).load(uri).into(binding.imageView)
                 val imageUrl = uri.toString()
 
-                // 将照片的 URL 更新到餐厅对象中
+                // Update the URL of the photo into the restaurant object
                 val restaurant = binding.restaurant
-                restaurant!!.imageURL = imageUrl
+                restaurant?.imageURL = imageUrl
+                restaurant?.let { restaurantDao.updateRestaurant(it) }
 
-                // 更新餐厅信息
-                restaurantDao.updateRestaurant(restaurant)
             }
-        }.addOnFailureListener {
+        }?.addOnFailureListener {
             progressDialog.dismiss()
-            Toast.makeText(this, "照片上传失败", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Photo upload failed", Toast.LENGTH_SHORT).show()
         }
     }
 
 
     override fun onStop() {
         super.onStop()
-        // 用户退出登录后，取消权限
+        // After the user logs out, cancel the permission
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED &&
             ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
         ) {

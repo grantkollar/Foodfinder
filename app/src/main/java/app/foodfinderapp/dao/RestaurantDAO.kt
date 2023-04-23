@@ -34,6 +34,7 @@ class RestaurantDao {
                 "category", restaurant.category,
                 "contact", restaurant.contact,
                 "hours", restaurant.hours,
+                "imageURL", restaurant.imageURL
             )
             .addOnFailureListener { e ->
                 Log.w(TAG, "Error updating document", e)
