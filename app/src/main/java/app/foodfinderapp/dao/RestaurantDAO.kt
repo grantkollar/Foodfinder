@@ -33,7 +33,8 @@ class RestaurantDao {
                 "address", restaurant.address,
                 "category", restaurant.category,
                 "contact", restaurant.contact,
-                "hours", restaurant.hours
+                "hours", restaurant.hours,
+                "imageURL", restaurant.imageURL
             )
             .addOnFailureListener { e ->
                 Log.w(TAG, "Error updating document", e)
@@ -55,10 +56,15 @@ class RestaurantDao {
         db.collection("restaurants")
             .document(name)
             .get()
+            .addOnSuccessListener { documentSnapshot ->
+                val restaurant = documentSnapshot.toObject(Restaurant::class.java)
+                callback(restaurant)
+            }
             .addOnFailureListener { e ->
                 Log.w(TAG, "Error getting documents: ", e)
             }
     }
+
 
     // Method to get all restaurants from the Firestore database.
     fun getAllRestaurants(callback: (List<Restaurant>) -> Unit) {
@@ -111,6 +117,20 @@ class RestaurantDao {
             }
             .addOnFailureListener { e ->
                 Log.w(TAG, "Error getting documents: ", e)
+            }
+    }
+
+    fun getImageUrl(restaurantId: String, callback: (String) -> Unit) {
+        val docRef = db.collection("restaurants").document(restaurantId)
+        docRef.get()
+            .addOnSuccessListener { document ->
+                if (document != null) {
+                    val imageUrl = document.getString("imageURL") ?: ""
+                    callback(imageUrl)
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.d(TAG, "get failed with ", exception)
             }
     }
 

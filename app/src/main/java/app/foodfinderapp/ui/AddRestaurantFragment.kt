@@ -19,6 +19,7 @@ import app.foodfinderapp.AddRestaurantViewModel
 import app.foodfinderapp.dao.RestaurantDao
 import app.foodfinderapp.dto.Restaurant
 import app.foodfinderapp.databinding.AddRestaurantBinding
+import java.util.*
 
 class AddRestaurantFragment : Fragment() {
 
@@ -49,7 +50,6 @@ class AddRestaurantFragment : Fragment() {
      * it to the database using the RestaurantDao class. It then returns to the previous Fragment using
      * popBackStack().
      */
-
     private fun addRestaurant() {
         viewModel.name = binding.editTextName.text.toString()
         viewModel.category = binding.editTextCategory.text.toString()
@@ -61,7 +61,17 @@ class AddRestaurantFragment : Fragment() {
         val ownerId = viewModel.getCurrentUserId()
 
         // Create a new Restaurant object using the retrieved values.
-        val restaurant = Restaurant(viewModel.restaurantID, viewModel.name, viewModel.category, viewModel.hours, viewModel.contact, viewModel.address, ownerId)
+        val restaurant = Restaurant(
+            UUID.randomUUID().toString(),
+            "", // ImageURL will be added later
+            viewModel.name,
+            viewModel.category,
+            viewModel.hours,
+            viewModel.contact,
+            viewModel.address,
+            ownerId,
+            0.0f // Set initial rating to 0.0
+        )
 
         // Add the new Restaurant object to the database using the RestaurantDao class.
         restaurantDao.addRestaurant(restaurant)
