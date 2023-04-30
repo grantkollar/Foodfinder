@@ -45,4 +45,5 @@
     <string name="my_restaurant">my Restaurant</string>
     <string name="title_activity_restaurant_detail">RestaurantDetailActivity</string>
     <string name="add_restaurant_sample">Add Sample</string>
+    <string name="Location">locationActivity</string>
 </resources>

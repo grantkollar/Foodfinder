@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import app.foodfinderapp.Application
+import app.foodfinderapp.MapFragment
 import app.foodfinderapp.ui.MainActivity
 import app.foodfinderapp.R
 import java.util.*
@@ -21,24 +22,30 @@ class LocationActivity : AppCompatActivity() {
     private val REQUEST_LOCATION_PERMISSION = 1
     private lateinit var locationManager: LocationManager
     private lateinit var locationListener: LocationListener
+    private var mapFragment: MapFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.fragment_map)
 
         locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        locationListener = object : LocationListener {
-            override fun onLocationChanged(location: Location) {
-                val latitude = location.latitude
-                val longitude = location.longitude
-                val address = getAddress(latitude, longitude)
-                Toast.makeText(this@LocationActivity, "Currently Location：$address", Toast.LENGTH_LONG).show()
+        locationListener = LocationListener { location ->
+            val latitude = location.latitude
+            val longitude = location.longitude
+            val address = getAddress(latitude, longitude)
 
-                // to main
-                val intent = Intent(Application.context, MainActivity::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                startActivity(intent)
-                finish()
+            // update map fragment
+            val fragmentManager = supportFragmentManager
+            mapFragment = fragmentManager.findFragmentById(R.id.map) as? MapFragment
+            if (mapFragment != null) {
+                mapFragment?.updateLocation(address)
+            } else {
+                mapFragment = MapFragment.newInstance(address)
+                mapFragment?.let {
+                    fragmentManager.beginTransaction()
+                        .add(R.id.map, it)
+                        .commit()
+                }
             }
         }
     }
